@@ -1,10 +1,48 @@
 
-nama : adin 
+nama : adin sigma
 kode : 20091210001
-ttl : 
-email : dindonpassword : dindonn
-nama : adin lagiii
+ttl : tulungagung, 10, 12, 2009
+alamat : pucanglaban
+email : dinsigma@archbtw.com
+password : i am using arch btw
+kode akun : adinsigma@archbtw.comi am using arch btw
+
+nama : adin lagi
 kode : 20091210002
 ttl : tulungagung, 10, 12, 2009
-email : adin@gmain.coom
-password : sigma
+alamat : pucanglaban
+email : iamusingarchbtw@ubuntubtw.com
+password : ubuntu
+kode akun : iamusingarchbtw@ubuntubtw.comubuntu
+
+nama : adin lagi coyyyyyyyy
+kode : 20091210003
+ttl : tulungagung, 10, 12, 2009
+alamat : pucanglaban
+email : adin@linux.com
+password : hai
+kode akun : adin@linux.comhai
+
+nama : adin ga tau berapa
+kode : 20091210004
+ttl : tulungagung, 10, 12, 2009
+alamat : tulungagung
+email : adin@mungkin.com
+password : ga tau
+kode akun : adin@mungkin.com-ga tau
+
+nama : adin lagi ga tahu ke berapa
+kode : 20091210005
+ttl : tulungagung, 10, 12, 2009
+alamat : pucanglaban
+email : pokecu@arch.com
+password : i am using arch btw
+kode akun : pokecu@arch.com-i am using arch btw
+
+nama : adin sigma banget
+kode : 20091210006
+ttl : tulungagung, 10, 12, 2009
+alamat : pucanglaban
+email : hai@gmail.com
+password : hai juga
+kode akun : hai@gmail.com-hai juga
