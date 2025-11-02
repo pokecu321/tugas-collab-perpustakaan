@@ -173,7 +173,7 @@ void daftar(data_anggota anggota){
     {
         urutanstr = "0" + urutanstr;
     }
-    ofstream file("data.txt",ios::app);
+    ofstream file("anggota.txt",ios::app);
     if(file.is_open()){
         file << endl;
         file << "nama : " << anggota.nama << endl;
@@ -191,12 +191,40 @@ void daftar(data_anggota anggota){
     
 
 
-void login(){
+void login(data_anggota anggota,data_admin admin){
+    ifstream bacafileanggota("anggota.txt");
+    ifstream bacafileadmin("admin.txt");
+    string password,email,kodeakun2;
+    string nama,kode,ttl,alamat,pass,kodeakun,emaillagi;
+    string baris;
+    int jumlah = 0;
 
+    cout << "login" <<endl;
+    cout << "email : ";
+    getline(cin,email);
+    cout << "password : ";
+    getline(cin,password);
+    kodeakun2 = email + "-" + password;
+    cout << kodeakun2; 
+    
+    while (getline(bacafileanggota,baris))
+    {
+        jumlah++;
+    }
+    
+
+    
+    
+    
+    
+    
+    
 }
 
 
 int main(){
     data_anggota anggota;
-    daftar(anggota);
+    data_admin admin;
+    // daftar(anggota);
+    login(anggota,admin);
 }
