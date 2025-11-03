@@ -153,17 +153,26 @@ void daftar(data_anggota anggota){
     kodeakun = anggota.email +"-"+ anggota.password;
     
     {
-        ifstream bacafile("data.txt");
-        while (getline(bacafile,baris))
+        ifstream bacafile("anggota.txt");
+        if (bacafile.is_open())
         {
-            if (baris.find("nama") != string::npos) //kondisi berisi pencarian kata kunci "nama"
+            while (getline(bacafile,baris))
             {
-                urutan++;
+                cout << "tes " <<endl;
+                if (baris.find("kode : " + tahun + bulan + tgl ) != string::npos) //kondisi berisi pencarian kata kunci "kode"
+                {
+                    urutan++;
+                    cout << "tes" << endl;
+                }
             }
         }
+        else{
+            cout << "gagal membuka file YAHHAHAHHAH!" <<endl;
+        }
+        
     
     }
-
+    
     string urutanstr = to_string(urutan);
     if (urutan < 10) 
     {
@@ -186,7 +195,9 @@ void daftar(data_anggota anggota){
         file << "password : "<< anggota.password<<endl;
         file << "kode akun : " << kodeakun<<endl;
     }   
-
+    cout << urutanstr<<endl;
+    cout << "kode : " + tahun + bulan + tgl;
+    cout << baris << endl;
 }
     
 
@@ -225,6 +236,6 @@ void login(data_anggota anggota,data_admin admin){
 int main(){
     data_anggota anggota;
     data_admin admin;
-    // daftar(anggota);
-    login(anggota,admin);
+    daftar(anggota);
+    // login(anggota,admin);
 }

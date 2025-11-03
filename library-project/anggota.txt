@@ -46,3 +46,44 @@ alamat : pucanglaban
 email : hai@gmail.com
 password : hai juga
 kode akun : hai@gmail.com-hai juga
+--cameo--
+nama : buyut kuadrat
+kode : 20091123001
+ttl : tulungagung, 23, 11, 2009
+alamat : selorejo
+email : tuwa@gmail.com
+password : gtw
+kode akun : tuwa@gmail.com-gtw
+
+nama : kuadrat
+kode : 20091123001
+ttl : tulungagung, 23, 11, 2009
+alamat : selorejo
+email : kuadrat23@gmail.com
+password : gwsigma
+kode akun : kuadrat23@gmail.com-gwsigma
+
+nama : buyut
+kode : 20091123001
+ttl : tulungagung, 23, 11, 2009
+alamat : selorejo
+email : tuwaaaa@gmail.com
+password : gw ga tuwa
+kode akun : tuwaaaa@gmail.com-gw ga tuwa
+
+nama : dan kuadrat
+kode : 20091123003
+ttl : tulungagung, 23, 11, 2009
+alamat : selorejo
+email : ewpih23@gmail.com
+password : ewpih si sigma
+kode akun : ewpih23@gmail.com-ewpih si sigma
+
+nama : buyut lagi
+kode : 20091123005
+ttl : tulungagung, 23, 11, 2009
+alamat : selorejo
+email : hmm@gmail.com
+password : sigma
+kode akun : hmm@gmail.com-sigma
+--/cameo--
