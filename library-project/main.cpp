@@ -69,6 +69,7 @@ void daftar(data_anggota anggota){
     string kodeakun; // berisi gabungan email dan password
     int urutan = 1;
 
+    //input data
     cout << "daftar akun!" <<endl;
     cout << "nama : ";
     getline(cin,anggota.nama);
@@ -76,93 +77,96 @@ void daftar(data_anggota anggota){
     cout << "tempat : ";
     getline(cin,anggota.ttl.tempat);
     
-    while (true)
+    // input ttl
+    while (true) // input tanggal
     {
         cout << "tanggal : ";
         cin >> anggota.ttl.tgl;
-        if (cin &&  anggota.ttl.tgl<= 31)
+        if (cin &&  anggota.ttl.tgl<= 31) //jika input int dan kurang dari atau sama dengan 31 maka looping berhenti
         {
-            break;
+            break;//mengakhiri looping
         }
-        else{
+        else{//atau jika input selain int dan lebih dari 31 maka looping di jalan kan
             cout << "format salah,mohon input ulang!" << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.clear();//mengahapus sisa input yang salah
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');// menghapus buffer
         }
     }
 
-    while (true)
+    while (true)// input bulan
     {
         cout << "bulan : ";
         cin >> anggota.ttl.bulan;
-        if (cin &&  anggota.ttl.bulan <= 12)
+        if (cin &&  anggota.ttl.bulan <= 12)//jika input int dan kurang dari atau sama dengan 12 maka looping berhenti
         {
-            break;
+            break; // mengakhiri looping
         }
-        else{
+        else{//atau jika input selain int dan lebih dari 12 maka looping di jalan kan
             cout << "format salah,mohon input ulang!"<<endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.clear();//menghapus sisa input yang salah
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
         }
     }
     
-    while (true)
+    while (true)//input tahun
     {
         cout << "tahun : ";
         cin >> anggota.ttl.tahun;
-        if (cin)
+        if (cin)// jika input adalah int maka looping berhenti
         {
             break;
         }
-        else{
+        else{// jika tidak maka looping dijalankan
             cout << "input salah,mohon input ulang!"<<endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cin.clear();//menghapus sisa input yang salah
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer(berhenti jika bertemu dengan newline atau endl)
         }
     }
     
-
+    
     cout << "alamat : ";
-    cin.ignore();
+    cin.ignore();//menghapus buffer
     getline(cin,anggota.alamat);
 
     cout << "email : ";
     getline(cin,anggota.email);
     
-    while (true)
+    //password
+    while (true)// looping terus sampai ada break;
     {
         cout << "password : ";
-        getline(cin,anggota.password);
+        getline(cin,anggota.password);//input password
         cout << "konfirmasi password : ";
-        getline(cin,konfirmasi);
-        if (anggota.password == konfirmasi)
+        getline(cin,konfirmasi);//input konfirmasi password
+        //pengecekan kondisi"apakah password dan konfirmasi sama?"
+        if (anggota.password == konfirmasi)//jika sama maka looping di hentikan
         {
-            break;
+            break;//memberi tanda ke looping bahwa looping berhenti
         }
-        else{
-            cout << "password tidak sama!(tekan enter atau apa saja untuk lanjut XD)"<<endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        else{//jika tidak sama maka looping masih berlanjut
+            cout << "password tidak sama!(tekan enter atau apa saja untuk lanjut XD"<<endl;
+            cin.clear();// menghapus sisa input yang salah
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
         }
         
     }
-    
+    // konversi dari int menjadi string menggunakan stl string atau #include <string>
     tgl = to_string(anggota.ttl.tgl);
     bulan = to_string(anggota.ttl.bulan);
     tahun = to_string(anggota.ttl.tahun);
+    //kode akun(untuk mempermudah saat sesi login)
     kodeakun = anggota.email +"-"+ anggota.password;
     
+    //pembuatan kode angka pada akun
     {
-        ifstream bacafile("anggota.txt");
+        ifstream bacafile("anggota.txt");//inisialisasi variabel
         if (bacafile.is_open())
         {
-            while (getline(bacafile,baris))
+            while (getline(bacafile,baris))// mengambil file dari anggota.txt lalu di masukkan ke baris
             {
-                cout << "tes " <<endl;
-                if (baris.find("kode : " + tahun + bulan + tgl ) != string::npos) //kondisi berisi pencarian kata kunci "kode"
-                {
-                    urutan++;
-                    cout << "tes" << endl;
+                if (baris.find("kode : " + tahun + bulan + tgl ) != string::npos) //kondisi berisi pencarian kata kunci "kode : angka" 
+                {//jika dalam baris di temukan tgl,bulan,tahun yang sama maka kode akun bagian 3 digit terakhir akan ter increment
+                    urutan++;//increment
                 }
             }
         }
@@ -172,16 +176,17 @@ void daftar(data_anggota anggota){
         
     
     }
-    
+    //konversi int menjadi string
     string urutanstr = to_string(urutan);
-    if (urutan < 10) 
+    if (urutan < 10) //jika urutan kurang dari 10
     {
-        urutanstr = "00" + urutanstr;
+        urutanstr = "00" + urutanstr; //contoh 003
     }
-    else if (urutan < 100) 
+    else if (urutan < 100) // urutan kurang dari 100 
     {
-        urutanstr = "0" + urutanstr;
+        urutanstr = "0" + urutanstr;//contoh 011
     }
+    //menulis file ke anggota.txt
     ofstream file("anggota.txt",ios::app);
     if(file.is_open()){
         file << endl;
@@ -194,10 +199,7 @@ void daftar(data_anggota anggota){
         file << "email : "<< anggota.email<<endl;
         file << "password : "<< anggota.password<<endl;
         file << "kode akun : " << kodeakun<<endl;
-    }   
-    cout << urutanstr<<endl;
-    cout << "kode : " + tahun + bulan + tgl;
-    cout << baris << endl;
+    } 
 }
     
 
