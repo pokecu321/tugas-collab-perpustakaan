@@ -67,7 +67,7 @@ void profileanggota(data_anggota anggota,string kodeakun,string email,string pas
 }
 
 void dasboranggota(data_anggota anggota,string kodeakun,string email,string password,string nama){
-    string menu;
+    string menu;// variabel menu
     while (true)
     {
         cout << "dasbor anggota"<<endl;
@@ -77,7 +77,8 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
             <<"3.profile"<<endl
             <<"4.keluar"<<endl;
         cin >> menu;
-
+        
+        // pengecekan,menu apa yang di input oleh user
         if (menu == "1")
         {
             cout << "pencarian"<<endl;
@@ -95,7 +96,9 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
             cout << "user memilih keluar!";
             break;
         }
-        else{
+        else{ // jika input tidak sesuai dengan yang ditampilkan maka looping
+            cout << "input invalid!"<<endl;
+            cout <<endl;
             continue;
         }
     }
@@ -205,9 +208,9 @@ void daftar(data_anggota anggota){
         ifstream bacafile("anggota.txt");
         if (bacafile.is_open())
         {
-            while (getline(bacafile,baris))
+            while (getline(bacafile,baris))// mengambil file dari baca file lalu di input ke baris
             {
-                if (baris.find("nama : ") != string::npos)
+                if (baris.find("nama : ") != string::npos)// pencarian kata kunci di baris
                 {
                     id++;
                 }
@@ -287,9 +290,10 @@ void daftar(data_anggota anggota){
 }
     
 void login(data_anggota anggota,data_admin admin){
+    //deklarasi variabel
     ifstream bacafileanggota("anggota.txt");
     ifstream bacafileadmin("admin.txt");
-    string passwordlog,emaillog,kodeakunlog;
+    string passwordlog,emaillog,kodeakunlog;// input log
     string nama1,kode1,ttl1,alamat1,pass1,kodeakun1,email1;// anggota
     string nama2,kode2,ttl2,alamat2,pass2,kodeakun2,email2;//admin
     string baris1,baris2;
@@ -297,26 +301,27 @@ void login(data_anggota anggota,data_admin admin){
 
     cout << "login" <<endl;
     cout << "email : ";
-    cin.ignore();
+    cin.ignore();// menghilangkan beffer
     getline(cin,emaillog);
     cout << "password : ";
     getline(cin,passwordlog);
-    kodeakunlog = emaillog + "-" + passwordlog;
+    kodeakunlog = emaillog + "-" + passwordlog;// pembuatan kode akun khusus login
     cout << kodeakunlog << endl; 
 
     if (bacafileanggota.is_open())
     {
-        bool ditemukan = false;
+        bool ditemukan = false;// ditemukan bernilai false
         while (getline(bacafileanggota,baris1))
         {
     
-            size_t posisi1 = baris1.find(kodeakunlog);
+            size_t posisi1 = baris1.find(kodeakunlog);// pencarian kode akun
             if (posisi1 != string::npos)
             {
                 ditemukan = true;
-                kodeakun1 = baris1.substr(posisi1);
-                email1 = kodeakun1.substr(0,kodeakun1.find('-'));
-                pass1 = kodeakun1.substr(kodeakun1.find('-') + 1,kodeakun1.find('\n'));
+                kodeakun1 = baris1.substr(posisi1);// pengambilan kalimat
+                email1 = kodeakun1.substr(0,kodeakun1.find('-'));// memotong kalimat dari posisi 0 sampai bertemu dengan '-'
+                pass1 = kodeakun1.substr(kodeakun1.find('-') + 1,kodeakun1.find('\n')); // memotong kalimat dari posisi '-'+1 (+ 1 supaya '-' tidak ikut) sampai bertemu dengan '\n' atau newline atau endl
+                // buat tes atau buat debug doang
                 cout << kodeakun1 << endl;
                 cout << email1<<endl;
                 cout << pass1<<endl;
@@ -328,6 +333,7 @@ void login(data_anggota anggota,data_admin admin){
         
         }
     }
+    // kurang lebih sama seperti yang anggota,cumman ini admmmin
     if (bacafileadmin.is_open())
     {
         bool ditemukan = false;
@@ -350,16 +356,17 @@ void login(data_anggota anggota,data_admin admin){
         }
         
     }
-    if (kodeakun1 == kodeakunlog)
+    // pengecekan apakah input login ada di data anggota atau admin atau malah akun tidak ada
+    if (kodeakun1 == kodeakunlog) // jika anggota
     {
         cout << "dasbor anggota "<<endl;
         dasboranggota(anggota,kodeakun1,email1,pass1,nama1);
     }
-    else if (kodeakun2 == kodeakunlog)
+    else if (kodeakun2 == kodeakunlog) // jika admin
     {
         cout << "dasbor admin!"<< endl;
     }
-    else{
+    else{ // jika tidak ditemukan 
         cout << "akun tidak ditemukan!";
     }
     
