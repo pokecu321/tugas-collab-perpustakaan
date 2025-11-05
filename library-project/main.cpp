@@ -61,6 +61,7 @@ struct peminjaman
     string denda;
 };
 
+
 void daftar(data_anggota anggota){
     
     string tgl,bulan,tahun;
@@ -73,6 +74,7 @@ void daftar(data_anggota anggota){
     //input data
     cout << "daftar akun!" <<endl;
     cout << "nama : ";
+    cin.ignore();
     getline(cin,anggota.nama);
     cout << "tempat tangal lahir(contoh format tulungagung,10 12 2009/jika tidak mirip ada kemungkinan bug pada sistem!)"<<endl;
     cout << "tempat : ";
@@ -243,42 +245,98 @@ void daftar(data_anggota anggota){
     } 
 }
     
-
-
 void login(data_anggota anggota,data_admin admin){
     ifstream bacafileanggota("anggota.txt");
     ifstream bacafileadmin("admin.txt");
-    string password,email,kodeakun2;
-    string nama,kode,ttl,alamat,pass,kodeakun,emaillagi;
-    string baris;
+    string passwordlog,emaillog,kodeakunlog;
+    string nama1,kode1,ttl1,alamat1,pass1,kodeakun1,email1;// anggota
+    string nama2,kode2,ttl2,alamat2,pass2,kodeakun2,email2;//admin
+    string baris1,baris2;
     int jumlah = 0;
 
     cout << "login" <<endl;
     cout << "email : ";
-    getline(cin,email);
+    cin.ignore();
+    getline(cin,emaillog);
     cout << "password : ";
-    getline(cin,password);
-    kodeakun2 = email + "-" + password;
-    cout << kodeakun2; 
-    
-    while (getline(bacafileanggota,baris))
+    getline(cin,passwordlog);
+    kodeakunlog = emaillog + "-" + passwordlog;
+    cout << kodeakunlog << endl; 
+    if (bacafileanggota.is_open())
     {
-        jumlah++;
-    }
-    
+        bool ditemukan = false;
+        while (getline(bacafileanggota,baris1))
+        {
+            size_t posisi1 = baris1.find(kodeakunlog);
+            if (posisi1 != string::npos)
+            {
+                ditemukan = true;
+                kodeakun1 = baris1.substr(posisi1);
+                cout << kodeakun1 << endl;
+            }
 
-    
-    
-    
-    
-    
+        }
+    }
+    if (bacafileadmin.is_open())
+    {
+        bool ditemukan = false;
+        while (getline(bacafileadmin,baris2))
+        {
+            size_t posisi2 = baris2.find(kodeakunlog);
+            if (posisi2 != string::npos)
+            {
+                ditemukan = true;
+                kodeakun2 = baris2.substr(posisi2);
+                cout << kodeakun2;
+            }
+            
+        }
+        
+    }
+    if (kodeakun1 == kodeakunlog)
+    {
+        cout << "dasbor member!"<<endl;
+    }
+    else if (kodeakun2 == kodeakunlog)
+    {
+        cout << "dasbor admin!"<< endl;
+    }
+    else{
+        cout << "akun tidak ditemukan!";
+    }
     
 }
 
 
 int main(){
+    int menu;
     data_anggota anggota;
     data_admin admin;
-    daftar(anggota);
-    // login(anggota,admin);
+    while (true)
+    {
+        cout <<"1.login!"<<endl
+        << "2.daftar!"<<endl
+        << "pencet key selain di atas untuk keluar"<<endl
+        << "input : ";
+        cin >> menu;
+        if (menu == 1)
+        {
+            login(anggota,admin);
+            break;
+        }
+        else if (menu == 2)
+        {
+            daftar(anggota);    
+            login(anggota,admin);
+            break;
+        }
+        else{
+            cout << "user memilih keluar"<<endl;
+            break;
+        }
+        
+        
+    }
+    
+    
 }

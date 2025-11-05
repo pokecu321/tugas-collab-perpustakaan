@@ -96,3 +96,12 @@ alamat : dusun pucanglaban
 email : gtw@gmail.com
 password : mana gw tahu
 kode akun : gtw@gmail.com-mana gw tahu
+
+nama : dindon
+id : 000013
+kode : 20091210008
+ttl : tulungagung, 10, 12, 2009
+alamat : pucanglaban
+email : hai@gmail.com
+password : hai
+kode akun : hai@gmail.com-hai
