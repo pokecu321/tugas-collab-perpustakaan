@@ -62,8 +62,12 @@ struct peminjaman
     string denda;
 };
 
-void dasboranggota(data_anggota anggota,string kodeakun,string email,string password){
-    int menu;
+void profileanggota(data_anggota anggota,string kodeakun,string email,string password,string nama){
+    cout << "profil"<<endl;
+}
+
+void dasboranggota(data_anggota anggota,string kodeakun,string email,string password,string nama){
+    string menu;
     while (true)
     {
         cout << "dasbor anggota"<<endl;
@@ -74,19 +78,19 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
             <<"4.keluar"<<endl;
         cin >> menu;
 
-        if (menu == 1)
+        if (menu == "1")
         {
             cout << "pencarian"<<endl;
         }
-        else if (menu == 2)
+        else if (menu == "2")
         {
             cout << "pengembalian"<<endl;
         }
-        else if (menu == 3)
+        else if (menu == "3")
         {
             cout << "profile"<<endl;
         }
-        else if (menu == 4)
+        else if (menu == "4")
         {
             cout << "user memilih keluar!";
             break;
@@ -268,6 +272,7 @@ void daftar(data_anggota anggota){
     ofstream file("anggota.txt",ios::app);
     if(file.is_open()){
         file << endl;
+        file << "kode akun : " << kodeakun<<endl;
         file << "nama : " << anggota.nama << endl;
         file << "id : " << idstr<<endl;
         file << "kode : " << tahun + bulan + tgl + urutanstr <<endl;
@@ -277,8 +282,7 @@ void daftar(data_anggota anggota){
         file << "alamat : "<< anggota.alamat << endl;
         file << "email : "<< anggota.email<<endl;
         file << "password : "<< anggota.password<<endl;
-        file << "kode akun : " << kodeakun<<endl;
-        file << "status akun : "<<anggota.status;
+        file << "status akun : "<<anggota.status<<endl;
     } 
 }
     
@@ -299,11 +303,13 @@ void login(data_anggota anggota,data_admin admin){
     getline(cin,passwordlog);
     kodeakunlog = emaillog + "-" + passwordlog;
     cout << kodeakunlog << endl; 
+
     if (bacafileanggota.is_open())
     {
         bool ditemukan = false;
         while (getline(bacafileanggota,baris1))
         {
+    
             size_t posisi1 = baris1.find(kodeakunlog);
             if (posisi1 != string::npos)
             {
@@ -314,8 +320,12 @@ void login(data_anggota anggota,data_admin admin){
                 cout << kodeakun1 << endl;
                 cout << email1<<endl;
                 cout << pass1<<endl;
+                cout <<baris1<<endl;
+                
+                
+            
             }
-
+        
         }
     }
     if (bacafileadmin.is_open())
@@ -342,7 +352,8 @@ void login(data_anggota anggota,data_admin admin){
     }
     if (kodeakun1 == kodeakunlog)
     {
-        dasboranggota(anggota,kodeakun1,email1,pass1);
+        cout << "dasbor anggota "<<endl;
+        dasboranggota(anggota,kodeakun1,email1,pass1,nama1);
     }
     else if (kodeakun2 == kodeakunlog)
     {
@@ -355,30 +366,38 @@ void login(data_anggota anggota,data_admin admin){
 }
 
 int main(){
-    int menu;
+    string menu;
     data_anggota anggota;
     data_admin admin;
     while (true)
     {
         cout <<"1.login!"<<endl
         << "2.daftar!"<<endl
-        << "pencet key selain di atas untuk keluar"<<endl
+        << "3.keluar"<<endl
         << "input : ";
         cin >> menu;
-        if (menu == 1)
+        if (menu == "1")
         {
             login(anggota,admin);
             break;
         }
-        else if (menu == 2)
+        else if (menu == "2")
         {
             daftar(anggota);    
+            
             login(anggota,admin);
             break;
         }
-        else{
+        else if (menu == "3")
+        {
             cout << "user memilih keluar"<<endl;
             break;
+        }
+        
+        else{
+            cout << "input invalid!"<<endl;
+            cout <<endl;
+            continue;
         }
         
     }

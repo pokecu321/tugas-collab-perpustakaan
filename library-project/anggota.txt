@@ -97,11 +97,12 @@ email : gtw@gmail.com
 password : mana gw tahu
 kode akun : gtw@gmail.com-mana gw tahu
 
-nama : dindon
+kode akun : alo-alo
+nama : dindon cpp
 id : 000013
 kode : 20091210008
 ttl : tulungagung, 10, 12, 2009
-alamat : pucanglaban
-email : hai@gmail.com
-password : hai
-kode akun : hai@gmail.com-hai
+alamat : desa pucanglaban
+email : alo
+password : alo
+status akun : 0
