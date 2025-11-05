@@ -68,6 +68,7 @@ void daftar(data_anggota anggota){
     string konfirmasi;// konfirmasi password
     string kodeakun; // berisi gabungan email dan password
     int urutan = 1;
+    int id = 1;
 
     //input data
     cout << "daftar akun!" <<endl;
@@ -157,6 +158,45 @@ void daftar(data_anggota anggota){
     //kode akun(untuk mempermudah saat sesi login)
     kodeakun = anggota.email +"-"+ anggota.password;
     
+    // pembuatan id angka pada akun
+    {
+        ifstream bacafile("anggota.txt");
+        if (bacafile.is_open())
+        {
+            while (getline(bacafile,baris))
+            {
+                if (baris.find("nama : ") != string::npos)
+                {
+                    id++;
+                }
+                
+            }
+            
+        }
+        else
+        {
+            cout << "gagal membuka file!"<<endl;
+        }
+        
+    }
+    string idstr = to_string(id);
+    if (id < 10) //jika urutan kurang dari 10
+    {
+        idstr = "00000" + idstr; //contoh 000003
+    }
+    else if (id < 100) // urutan kurang dari 100 
+    {
+        idstr = "0000" + idstr;//contoh 000011
+    }
+    else if (id < 1000)
+    {
+        idstr = "000" + idstr;
+    }
+    else if (id < 10000)
+    {
+        idstr = "00" + idstr;
+    }
+
     //pembuatan kode angka pada akun
     {
         ifstream bacafile("anggota.txt");//inisialisasi variabel
@@ -191,6 +231,7 @@ void daftar(data_anggota anggota){
     if(file.is_open()){
         file << endl;
         file << "nama : " << anggota.nama << endl;
+        file << "id : " << idstr<<endl;
         file << "kode : " << tahun + bulan + tgl + urutanstr <<endl;
         file << "ttl : " << anggota.ttl.tempat 
              << ", "<<tgl << ", "<< bulan

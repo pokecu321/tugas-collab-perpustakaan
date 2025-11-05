@@ -87,3 +87,12 @@ email : hmm@gmail.com
 password : sigma
 kode akun : hmm@gmail.com-sigma
 --/cameo--
+
+nama : dindon lagi wok
+id : 000012
+kode : 20091210007
+ttl : tulungagung, 10, 12, 2009
+alamat : dusun pucanglaban
+email : gtw@gmail.com
+password : mana gw tahu
+kode akun : gtw@gmail.com-mana gw tahu
