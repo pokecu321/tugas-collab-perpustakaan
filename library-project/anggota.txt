@@ -5,7 +5,7 @@ ttl : tulungagung, 10, 12, 2009
 alamat : pucanglaban
 email : dinsigma@archbtw.com
 password : i am using arch btw
-kode akun : adinsigma@archbtw.comi am using arch btw
+kode akun : adinsigma@archbtw.com-i am using arch btw
 
 nama : adin lagi
 kode : 20091210002

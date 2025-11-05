@@ -12,6 +12,8 @@ struct TTL
     int tahun;
 };
 
+
+
 struct data_anggota
 {
     string id;//6 digit
@@ -29,7 +31,6 @@ struct data_anggota
     bool status;// status berisi 1/0
     // 1 = belum mengembalikan
     // 0 = sudah menembalikan
-    
 };
 
 struct data_admin
@@ -61,6 +62,41 @@ struct peminjaman
     string denda;
 };
 
+void dasboranggota(data_anggota anggota,string kodeakun,string email,string password){
+    int menu;
+    while (true)
+    {
+        cout << "dasbor anggota"<<endl;
+        cout << "hai "<< email <<endl;
+        cout << "1.cari"<<endl
+            <<"2.pengembalian"<<endl
+            <<"3.profile"<<endl
+            <<"4.keluar"<<endl;
+        cin >> menu;
+
+        if (menu == 1)
+        {
+            cout << "pencarian"<<endl;
+        }
+        else if (menu == 2)
+        {
+            cout << "pengembalian"<<endl;
+        }
+        else if (menu == 3)
+        {
+            cout << "profile"<<endl;
+        }
+        else if (menu == 4)
+        {
+            cout << "user memilih keluar!";
+            break;
+        }
+        else{
+            continue;
+        }
+    }
+    
+}
 
 void daftar(data_anggota anggota){
     
@@ -242,6 +278,7 @@ void daftar(data_anggota anggota){
         file << "email : "<< anggota.email<<endl;
         file << "password : "<< anggota.password<<endl;
         file << "kode akun : " << kodeakun<<endl;
+        file << "status akun : "<<anggota.status;
     } 
 }
     
@@ -272,7 +309,11 @@ void login(data_anggota anggota,data_admin admin){
             {
                 ditemukan = true;
                 kodeakun1 = baris1.substr(posisi1);
+                email1 = kodeakun1.substr(0,kodeakun1.find('-'));
+                pass1 = kodeakun1.substr(kodeakun1.find('-') + 1,kodeakun1.find('\n'));
                 cout << kodeakun1 << endl;
+                cout << email1<<endl;
+                cout << pass1<<endl;
             }
 
         }
@@ -287,7 +328,13 @@ void login(data_anggota anggota,data_admin admin){
             {
                 ditemukan = true;
                 kodeakun2 = baris2.substr(posisi2);
-                cout << kodeakun2;
+                cout << posisi2 <<endl;
+                email2 = kodeakun2.substr(0,kodeakun2.find('-'));
+                pass2 = kodeakun2.substr(kodeakun2.find("-") + 1,kodeakun2.find('\n'));
+                cout << kodeakun2.length()<<endl;
+                cout << email2 <<endl;
+                cout << pass2<<endl;
+                
             }
             
         }
@@ -295,7 +342,7 @@ void login(data_anggota anggota,data_admin admin){
     }
     if (kodeakun1 == kodeakunlog)
     {
-        cout << "dasbor member!"<<endl;
+        dasboranggota(anggota,kodeakun1,email1,pass1);
     }
     else if (kodeakun2 == kodeakunlog)
     {
@@ -306,7 +353,6 @@ void login(data_anggota anggota,data_admin admin){
     }
     
 }
-
 
 int main(){
     int menu;
@@ -335,8 +381,6 @@ int main(){
             break;
         }
         
-        
     }
-    
     
 }
