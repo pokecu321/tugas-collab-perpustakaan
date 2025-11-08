@@ -12,8 +12,6 @@ struct TTL
     int tahun;
 };
 
-
-
 struct data_anggota
 {
     string id;//6 digit
@@ -63,8 +61,14 @@ struct peminjaman
 };
 
 void profileanggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
-    cout << "tes ya wokk"<<endl;
-    iftream bacafile
+    cout <<endl<< "profile"<<endl;
+    ifstream bacafile("anggota.txt");
+    for (int i = 1; i <= 8 && getline(bacafile,baris1); i++)
+    {
+        cout << baris1<<endl;
+    }
+    cout << endl;
+    
 }
 
 void dasboranggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
@@ -76,22 +80,22 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
         cout << "1.cari"<<endl
             <<"2.pengembalian"<<endl
             <<"3.profile"<<endl
-            <<"4.keluar"<<endl;
+            <<"4.keluar"<<endl
+            <<"input: ";
         cin >> menu;
         
         // pengecekan,menu apa yang di input oleh user
         if (menu == "1")
         {
-            cout << "pencarian"<<endl;
+            cout <<endl<< "pencarian"<<endl;
         }
         else if (menu == "2")
         {
-            cout << "pengembalian"<<endl;
+            cout << endl<<"pengembalian"<<endl;
         }
         else if (menu == "3")
         {
-	    profile(anggota,kodeakun,email,password,baris1);
-            cout << "profile"<<endl;
+	        profileanggota(anggota,kodeakun,email,password,baris1);
         }
         else if (menu == "4")
         {
@@ -105,6 +109,43 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
         }
     }
     
+}
+
+void tampildataanggota(){
+    ifstream bacafile("anggota.txt");
+    string baris;
+    int totalbaris = 0;
+    if (bacafile.is_open())
+    {
+        while (getline(bacafile,baris))
+        {
+            totalbaris++;
+        }
+        cout << totalbaris<<endl; 
+        string nama[totalbaris],id[totalbaris],kode[totalbaris],ttl[totalbaris],alamat[totalbaris],email[totalbaris],password[totalbaris],statusakun[totalbaris],kodeakun[totalbaris];
+        
+
+        while (getline(bacafile,kodeakun))
+        {
+            getline(bacafile,nama);
+            getline(bacafile,id);
+            getline(bacafile,kode);
+            getline(bacafile,ttl);
+            getline(bacafile,alamat);
+            getline(bacafile,email);
+            getline(bacafile,password);
+            getline(bacafile,statusakun);
+            
+        }
+        
+        
+    }
+    
+}
+
+void dasboradmin(){
+    cout << "1.tampil data anggota"<<endl;
+    tampildataanggota();
 }
 
 void daftar(data_anggota anggota){
@@ -307,8 +348,7 @@ void login(data_anggota anggota,data_admin admin){
     getline(cin,emaillog);
     cout << "password : ";
     getline(cin,passwordlog);
-    kodeakunlog = emaillog + "-" + passwordlog;// pembuatan kode akun khusus login
-    cout << kodeakunlog << endl; 
+    kodeakunlog = emaillog + "-" + passwordlog;// pembuatan kode akun khusus login 
 
     if (bacafileanggota.is_open())
     {
@@ -321,17 +361,18 @@ void login(data_anggota anggota,data_admin admin){
             {
                 ditemukan = true;
                 kodeakun1 = baris1.substr(posisi1);// pengambilan kalimat
-     a           email1 = kodeakun1.substr(0,kodeakun1.find('-'));// memotong kalimat dari posisi 0 sampai bertemu dengan '-'
+                email1 = kodeakun1.substr(0,kodeakun1.find('-'));// memotong kalimat dari posisi 0 sampai bertemu dengan '-'
                 pass1 = kodeakun1.substr(kodeakun1.find('-') + 1,kodeakun1.find('\n')); // memotong kalimat dari posisi '-'+1 (+ 1 supaya '-' tidak ikut) sampai bertemu dengan '\n' atau newline atau endl
-                for(int i = 1;i <= 8 && getline(bacafileanggota,baris1);i++){
-			cout << baris1 <<endl;
-			
-		}
-		// buat tes atau buat debug doang
-                cout << kodeakun1 << endl;
+
+		        // buat tes atau buat debug doang
+                /*cout << kodeakun1 << endl;
                 cout << email1<<endl;
                 cout << pass1<<endl;
-                cout <<baris1<<endl;
+                cout <<baris1<<endl;*/
+                /*for(int i = 1;i <= 8 && getline(bacafileanggota,baris1);i++){
+			        cout << baris1 <<endl;
+			
+		        }*/
                 
                 
             
@@ -365,12 +406,11 @@ void login(data_anggota anggota,data_admin admin){
     // pengecekan apakah input login ada di data anggota atau admin atau malah akun tidak ada
     if (kodeakun1 == kodeakunlog) // jika anggota
     {
-        cout << "dasbor anggota "<<endl;
         dasboranggota(anggota,kodeakun1,email1,pass1,baris1);
     }
     else if (kodeakun2 == kodeakunlog) // jika admin
     {
-        cout << "dasbor admin!"<< endl;
+        dasboradmin();
     }
     else{ // jika tidak ditemukan 
         cout << "akun tidak ditemukan!";

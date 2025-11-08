@@ -4,5 +4,8 @@
     "ostream": "cpp",
     "iostream": "cpp",
     "limits": "cpp"
-  }
+  },
+  "editor.tabSize": 4,
+  "editor.lineHeight": 0,
+  "editor.fontSize": 16
 }
