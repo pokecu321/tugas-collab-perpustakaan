@@ -106,3 +106,13 @@ alamat : desa pucanglaban
 email : alo
 password : alo
 status akun : 0
+
+kode akun : yudi-pai
+nama : udin
+id : 000014
+kode : 199068001
+ttl : tulungagung, 8, 6, 1990
+alamat : bojonwgoro
+email : yudi
+password : pai
+status akun : 144

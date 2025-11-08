@@ -62,11 +62,12 @@ struct peminjaman
     string denda;
 };
 
-void profileanggota(data_anggota anggota,string kodeakun,string email,string password,string nama){
-    cout << "profil"<<endl;
+void profileanggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
+    cout << "tes ya wokk"<<endl;
+    iftream bacafile
 }
 
-void dasboranggota(data_anggota anggota,string kodeakun,string email,string password,string nama){
+void dasboranggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
     string menu;// variabel menu
     while (true)
     {
@@ -89,6 +90,7 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
         }
         else if (menu == "3")
         {
+	    profile(anggota,kodeakun,email,password,baris1);
             cout << "profile"<<endl;
         }
         else if (menu == "4")
@@ -319,9 +321,13 @@ void login(data_anggota anggota,data_admin admin){
             {
                 ditemukan = true;
                 kodeakun1 = baris1.substr(posisi1);// pengambilan kalimat
-                email1 = kodeakun1.substr(0,kodeakun1.find('-'));// memotong kalimat dari posisi 0 sampai bertemu dengan '-'
+     a           email1 = kodeakun1.substr(0,kodeakun1.find('-'));// memotong kalimat dari posisi 0 sampai bertemu dengan '-'
                 pass1 = kodeakun1.substr(kodeakun1.find('-') + 1,kodeakun1.find('\n')); // memotong kalimat dari posisi '-'+1 (+ 1 supaya '-' tidak ikut) sampai bertemu dengan '\n' atau newline atau endl
-                // buat tes atau buat debug doang
+                for(int i = 1;i <= 8 && getline(bacafileanggota,baris1);i++){
+			cout << baris1 <<endl;
+			
+		}
+		// buat tes atau buat debug doang
                 cout << kodeakun1 << endl;
                 cout << email1<<endl;
                 cout << pass1<<endl;
@@ -360,7 +366,7 @@ void login(data_anggota anggota,data_admin admin){
     if (kodeakun1 == kodeakunlog) // jika anggota
     {
         cout << "dasbor anggota "<<endl;
-        dasboranggota(anggota,kodeakun1,email1,pass1,nama1);
+        dasboranggota(anggota,kodeakun1,email1,pass1,baris1);
     }
     else if (kodeakun2 == kodeakunlog) // jika admin
     {
