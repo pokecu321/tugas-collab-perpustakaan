@@ -39,10 +39,29 @@ struct data_admin
     string nama;
 };
 
+struct ISBN // Prefix – Kode Negara – Kode Penerbit – Nomor Buku – Check Digit
+{
+    string previx;// 978
+    string kodenegara;// milik indonesia 608
+    string kodepenerbit;
+    string nomorbuku;
+    string checkdigit;// rumus check digit = (10 - (sum(products) % 10)) % 10
+    // contoh nyata
+    /*
+        Digit : 9 7 8 6 0 2 0 3 1 2 3 4
+        Posisi: 1 2 3 4 5 6 7 8 9 10 11 12
+        Bobot : 1 3 1 3 1 3 1 3 1 3  1  3
+        kalikan bergantian 1 dan 3:
+        (9×1) + (7×3) + (8×1) + (6×3) + (0×1) + (2×3) + (0×1) + (3×3) + (1×1) + (2×3) + (3×1) + (4×3)
+        Hasilnya = 93(ini adalah sum(products))
+        
+    */
+};
+
 struct buku
 {
     string id_buku;
-    string isbn;
+    ISBN isbn;
     string judul;
     string pengarang;
     string penerbit;
@@ -60,6 +79,11 @@ struct peminjaman
     string denda;
 };
 
+void tambahbuku(){
+    
+}
+
+// sudah selesai(jika tidak ada revisi)
 void profileanggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
     cout <<endl<< "profile"<<endl;
     ifstream bacafile("anggota.txt");
@@ -71,6 +95,7 @@ void profileanggota(data_anggota anggota,string kodeakun,string email,string pas
     
 }
 
+// belum selesai
 void dasboranggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
     string menu;// variabel menu
     while (true)
@@ -111,6 +136,7 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
     
 }
 
+// belum selesai
 void tampildataanggota(){
     ifstream bacafile("anggota.txt");
     string baris;
@@ -135,7 +161,6 @@ void tampildataanggota(){
             getline(bacafile,email);
             getline(bacafile,password);
             getline(bacafile,statusakun);
-            
         }
         
         
@@ -143,11 +168,13 @@ void tampildataanggota(){
     
 }
 
+//belum selesai
 void dasboradmin(){
     cout << "1.tampil data anggota"<<endl;
-    tampildataanggota();
+    // tampildataanggota();
 }
 
+// sepertinya sudah selesai
 void daftar(data_anggota anggota){
     
     string tgl,bulan,tahun;
@@ -331,7 +358,8 @@ void daftar(data_anggota anggota){
         file << "status akun : "<<anggota.status<<endl;
     } 
 }
-    
+
+// hampir selesai atau malah sudah selesai
 void login(data_anggota anggota,data_admin admin){
     //deklarasi variabel
     ifstream bacafileanggota("anggota.txt");
