@@ -1,0 +1,18 @@
+nama buku : tes
+id : 000001
+978-602-999-001-0
+nama buku : b indo coy
+id : 000002
+978-602-999-001-0
+nama buku : pepeh elge
+id : 000003
+978-602-999-001-0
+
+
+nama buku : erpe'el
+id : 000004
+978-602-999-001-0
+
+nama buku : rpl
+id : 000005
+978-602-999-001-0
