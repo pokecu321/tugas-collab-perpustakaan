@@ -68,7 +68,7 @@ void isbn(int hasilisbn[]){
     cout << panjang << endl;
     int digit[panjang];
     int hasil[13];
-    for (int i = 0; i < panjang; i++)
+    for (int i = 0; i < 12; i++)
     {
         digit[i] = sementara[i] - '0';
     }

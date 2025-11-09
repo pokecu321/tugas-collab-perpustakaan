@@ -60,12 +60,12 @@ struct ISBN // Prefix – Kode Negara – Kode Penerbit – Nomor Buku – Check
 
 struct buku
 {
-    string id_buku;
-    ISBN isbn;
-    string judul;
-    string pengarang;
-    string penerbit;
-    string tahun_terbit;
+    // string id_buku;
+    // ISBN isbn;
+    // string judul;
+    // string pengarang;
+    // string penerbit;
+    // string tahun_terbit;
     int stock;
 };
 struct peminjaman
@@ -79,8 +79,198 @@ struct peminjaman
     string denda;
 };
 
-void tambahbuku(){
+void checkdigit(int arrdariisbn[],int hasil[]){
+    int hasilawal = 0;
+    int temp;
+    // memindahkan nilai arr
+    for (int i = 0; i < 13; i++)
+    {
+        hasil[i] = arrdariisbn[i]; 
+    }
+    // pencarian digit
+    for (int i = 0; i < 12; i++)
+    {
+        if (i % 2 == 0)
+        {
+            temp = arrdariisbn[i] * 1;
+            arrdariisbn[i];
+        }
+        else{
+            temp = arrdariisbn[i] * 3;
+            arrdariisbn[i];
+        }
+        
+    }
+    // sum/jumlah
+    for (int i = 0; i < 12; i++)
+    {
+        hasilawal += arrdariisbn[i];
+    }
+    hasilawal = (10 - (hasilawal % 10)) % 10;
+    hasil[12] = hasilawal;
+    cout << endl;
+    cout << "digit : " << hasilawal<<endl;
+    for (int i = 0; i < 13; i++)
+    {
+        cout << hasil[i]<< " ";
+    }
     
+
+}
+
+void isbn(int hasilisbn[],string nomorbukustr){
+    // Prefix – Kode Negara – Kode Penerbit – Nomor Buku – Check Digit
+    string prefixstr = "978";
+    string kodenegarastr = "602";
+    string kodepenerbitstr = "999";
+    string sementara = prefixstr + kodenegarastr + kodepenerbitstr + nomorbukustr;
+    int digit[12];
+    cout << sementara<<endl;
+    cout << sementara[1]<<endl;
+    for (int i = 0; i < 12; i++)
+    {
+        digit[i] = sementara[i] - '0'; // angka 0 karena kode asci 0 adalah 48
+    }
+    cout << "isbn seentara tanpa validasi digit : ";
+    for (int i = 0; i < 12; i++)
+    {
+        cout << digit[i];
+    }
+    checkdigit(digit,hasilisbn);
+
+    
+}
+
+
+void tambahbuku(){
+    string judulbuku,penerbit,pengarang,tahunterbit;
+    
+    int stock;
+    int urutanbuku = 1,id = 1; //  urutan buku dan id itu beda,urutan buku untuk isbn
+
+    // input
+    #pragma region input
+    cout << "masukkan judul buku : ";
+    getline(cin,judulbuku);
+    cout << "penerbit : ";
+    getline(cin,penerbit);
+    cout << "pengarang : ";
+    getline(cin,pengarang);
+    cout << "tahun terbit : ";
+    getline(cin,tahunterbit);
+    #pragma endregion
+
+    //urutan buku
+    #pragma region urutan buku isbn
+
+    {
+        string baris;
+        ifstream bacafile("buku.txt");
+        if (bacafile.is_open())
+        {
+            while (getline(bacafile,baris))
+            {
+                size_t posisi = baris.find("judul buku :");
+                if (posisi != string::npos)
+                {
+                    if (baris.find(judulbuku) != string::npos)
+                    {
+                        urutanbuku = 1;
+                        break;
+                    }
+                    else{;
+                        urutanbuku++;
+                    }
+                }
+                
+            }
+            cout << urutanbuku<<endl<<"diluar while"<<endl;
+            
+        }
+        else{
+            cout << "gagal membuka file!"<<endl;
+        }
+    }
+
+    string urutanbukustr = to_string(urutanbuku);
+    if (urutanbuku < 10)
+    {
+        urutanbukustr = "00" + urutanbukustr;
+    }
+    else if (urutanbuku < 100)
+    {
+        urutanbukustr = "0" + urutanbukustr;
+    }
+    
+    #pragma endregion
+
+    //id
+    #pragma region id buku
+
+    {
+        ifstream bacafile("buku.txt");
+        string baris;
+        if (bacafile.is_open())
+        {
+            while (getline(bacafile,baris))
+            {
+                size_t posisi = baris.find("judul buku : ");
+                if (posisi != string::npos)
+                {
+                    id++;
+                }
+            }
+        }
+    }
+    string idstr = to_string(id);
+    if (id < 10)
+    {
+        idstr = "00000" + idstr;
+    }
+    else if (id < 100)
+    {
+        idstr = "0000" + idstr;
+    }
+    else if (id < 1000)
+    {
+        idstr = "000" + idstr;
+    }
+    else if (id < 10000)
+    {
+        idstr = "00" + idstr;
+    }
+    else if (id < 100000)
+    {
+        idstr = "0" + idstr;
+    }
+    
+    #pragma endregion
+    
+    int hasilisbn[13];
+    isbn(hasilisbn,urutanbukustr);
+
+    {
+        ofstream tulisfile("buku.txt",ios::app);
+        if (tulisfile.is_open())
+        {
+            tulisfile << "judul buku : " << judulbuku << endl;
+            tulisfile << "isbn : ";
+            for (int i = 0; i < 13; i++)
+            {
+                tulisfile << hasilisbn[i];
+            }
+            tulisfile<< endl;
+            tulisfile << "id : "<< idstr<<endl;
+            tulisfile << "pengarang : " << pengarang << endl;
+            tulisfile << "penerbit : " << penerbit << endl;
+            tulisfile << "tahun terbit : "<<tahunterbit<<endl;
+            tulisfile << endl;
+
+
+        }
+
+    }
+
 }
 
 // sudah selesai(jika tidak ada revisi)
@@ -137,6 +327,7 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
 }
 
 // belum selesai
+/*
 void tampildataanggota(){
     ifstream bacafile("anggota.txt");
     string baris;
@@ -167,10 +358,11 @@ void tampildataanggota(){
     }
     
 }
-
+*/
 //belum selesai
 void dasboradmin(){
     cout << "1.tampil data anggota"<<endl;
+    tambahbuku();
     // tampildataanggota();
 }
 
@@ -482,5 +674,5 @@ int main(){
         }
         
     }
-    
+    tambahbuku();
 }

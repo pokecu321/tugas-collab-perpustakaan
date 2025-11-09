@@ -1,0 +1,21 @@
+judul buku : python
+isbn : 9786029990010
+id : 00000
+pengarang : adin sigma lah
+penerbit : adin sigma
+tahun terbit : 3026
+
+judul buku : python
+isbn : 9786029990010
+id : 000002
+pengarang : ih adin si sigma awokwokw
+penerbit : adin sigma lagi lahhhh
+tahun terbit : 1945
+
+judul buku : c++
+isbn : 9786029990038
+id : 000003
+pengarang : adin
+penerbit : adin 
+tahun terbit : adin
+
