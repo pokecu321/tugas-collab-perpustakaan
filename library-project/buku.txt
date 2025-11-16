@@ -19,3 +19,10 @@ pengarang : adin
 penerbit : adin 
 tahun terbit : adin
 
+judul buku : a
+isbn : 1234567890123
+id : 000004
+pengarang : a
+penerbit : a
+tahun terbit : a
+

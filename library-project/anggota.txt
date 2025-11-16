@@ -116,3 +116,13 @@ alamat : bojonwgoro
 email : yudi
 password : pai
 status akun : 144
+
+kode akun : member-member
+nama : lagi lagi adin
+id : 000015
+kode : 20091210009
+ttl : tulungagung, 10, 12, 2009
+alamat : desa pucanglaban
+email : member
+password : member
+status akun : 0

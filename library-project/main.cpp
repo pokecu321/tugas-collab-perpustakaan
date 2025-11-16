@@ -117,13 +117,14 @@ void nonfiksi(){
     cout << statusstr<<endl;
     string kode = "1" + statusstr;
     int kodeint;
+    int temp;
     for (int i = 0; i < 2; i++)
     {
-        kodeint[i] = kode[i] - '0';
+        temp = kode[i] - '0';
+        kodeint = temp;
     }
     
     cout << kodeint<<endl;
-    checkdigit(kodeint);
 }
 
 void kodebuku(/*int hasilkodebuku[],string nomorbukustr*/){
@@ -159,12 +160,13 @@ void kodebuku(/*int hasilkodebuku[],string nomorbukustr*/){
 
 void tambahbuku(){
     string judulbuku,penerbit,pengarang,tahunterbit;
-    int isbn;
+    string isbn;
     int stock;
     int urutanbuku = 1,id = 1; //  urutan buku dan id itu beda,urutan buku untuk isbn
 
     // input
     #pragma region input
+    cin.ignore();
     cout << "masukkan judul buku : ";
     getline(cin,judulbuku);
     cout << "penerbit : ";
@@ -186,26 +188,20 @@ void tambahbuku(){
             << "check digit"<<endl
             << "isbn berisi 13 digit!"<<endl
             <<"input : ";
-        cin >> isbn;
-        if (cin && isbn)
+        getline(cin,isbn);
+        
+        
+        if (isbn.length() == 13)
         {
-            string digit = to_string(isbn);
-            if (digit.length() == 13)
-            {
-                cout << "berhasil input isbn!"<<endl;
-                break;
-            }
-            else{
-                cout << "format salah!"<<endl
-                    << "karena jumlah digit adalah "<< digit.length()<< " bukan 13!" <<endl;
-                continue;
-            }
+            cout << "berhasil input isbn!"<<endl;
+            break;
         }
         else{
-            cout << "input invalid!"<<endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout << "format salah!"<<endl
+                << "karena jumlah digit adalah "<< isbn.length()<< " bukan 13!" <<endl;
+            continue;
         }
+    
         
     }
     
@@ -329,29 +325,48 @@ void tambahbuku(){
 
 
 // sudah selesai(jika tidak ada revisi)
-void profileanggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
+void profileanggota(data_anggota anggota,string kodeakun,string email,string password){
     cout <<endl<< "profile"<<endl;
+    string baris;
     ifstream bacafile("anggota.txt");
-    for (int i = 1; i <= 8 && getline(bacafile,baris1); i++)
+    if (bacafile.is_open())
     {
-        cout << baris1<<endl;
+        
+        while (getline(bacafile,baris))
+        {
+            
+            size_t posisi = baris.find(kodeakun);
+            if (posisi != string::npos)
+            {
+                for(int i = 1;i <= 8 && getline(bacafile,baris);i++){
+	                cout << baris <<endl;
+                
+                }
+
+            
+            }
+
+        }
+
     }
-    cout << endl;
-    
+    else{
+        cout << "gagal membuka!"<<endl;
+    }
 }
 
 
-// belum selesai
-void dasboranggota(data_anggota anggota,string kodeakun,string email,string password,string baris1){
+// belum selesai(tinggal pencarian)
+void dasboranggota(data_anggota anggota,string kodeakun,string email,string password){
     string menu;// variabel menu
     while (true)
     {
+        cout <<endl;
         cout << "dasbor anggota"<<endl;
-        cout << "hai "<< email <<endl;
+        // cout << "hai "<< email <<endl;
         cout << "1.cari"<<endl
-            <<"2.profile"<<endl
-            <<"3.keluar"<<endl
-            <<"input: ";
+            << "2.profile"<<endl
+            << "3.keluar"<<endl
+            << "input: ";
         cin >> menu;
         
         // pengecekan,menu apa yang di input oleh user
@@ -361,7 +376,7 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
         }
         else if (menu == "2")
         {
-	        profileanggota(anggota,kodeakun,email,password,baris1);
+	        profileanggota(anggota,kodeakun,email,password);
         }
         else if (menu == "3")
         {
@@ -413,23 +428,83 @@ void tampildataanggota(){
 */
 
 
-//belum selesai
-void dasboradmin(){
-    cout << "1.tampil data anggota"<<endl
-        << "2.tampil buku"<<endl
-        << "3.tambah admin"<<endl
-        << "4.tambah anggota"<<endl
-        << "5.tambah buku"<<endl
-        << "6.peminjaman"<<endl
-        << "7.pengembalian"<< endl
-        << "input : ";
-    tambahbuku();
-    // tampildataanggota();
-}
-
-
+// sudah selesai
 void tambahadmin(data_admin admin){
+    ifstream bacafile("admin.txt");
+    ofstream tulisfile("admin.txt",ios::app);
+    string id,email,passw,nama,kodeakun;
+    string konfirmasi;
+    int urutan = 1;
+    if(bacafile.is_open())
+    {
+        string baris;
+        while (getline(bacafile,baris))
+        {
+            size_t posisi = baris.find("nama : ");
+            if (posisi != string::npos)
+            {
+                urutan++;
+            }
+            
+        }
+        
+    }
+
+    string idstr = to_string(urutan);
+    if (urutan < 10) //jika urutan kurang dari 10
+    {
+        idstr = "00000" + idstr; //contoh 000003
+    }
+    else if (urutan < 100) // urutan kurang dari 100 
+    {
+        idstr = "0000" + idstr;//contoh 000011
+    }
+    else if (urutan < 1000)
+    {
+        idstr = "000" + idstr;
+    }
+    else if (urutan < 10000)
+    {
+        idstr = "00" + idstr;
+    }
     
+    #pragma region input data admin
+    cin.ignore();
+    cout << "nama : ";
+    getline(cin,nama);
+    cout << "email : ";
+    getline(cin,email);
+    while (true)
+    {
+        cout << "password : ";
+        getline(cin,passw);
+        cout << "konfirmasi password : ";
+        getline(cin,konfirmasi);
+        if (passw == konfirmasi)
+        {
+            break;
+        }
+        else{
+            cout << "password tidak sama!"<<endl;
+            cout << "==========="  <<endl;
+        }
+    }
+
+    kodeakun = email + "-" + passw;
+
+    if (tulisfile.is_open())
+    {
+        tulisfile << "kode akun : "<<kodeakun<<endl;
+        tulisfile << "nama : "<<nama<< endl;
+        tulisfile << "id : "<< idstr << endl;
+        tulisfile << "email : "<<email << endl;
+        tulisfile << "password : "<< passw << endl;
+        tulisfile << endl;
+        
+    }
+
+    #pragma endregion
+
 }
 
 // sepertinya sudah selesai
@@ -618,6 +693,73 @@ void daftar(data_anggota anggota){
 }
 
 
+//belum selesai
+void dasboradmin(){
+    string menu;
+    data_anggota anggota;
+    data_admin admin;
+    while (true)
+    {
+    
+        cout << "1.tampil data anggota"<<endl
+            << "2.tampil buku"<<endl
+            << "3.tambah admin"<<endl
+            << "4.tambah anggota"<<endl
+            << "5.tambah buku"<<endl
+            << "6.peminjaman"<<endl
+            << "7.pengembalian"<< endl
+            << "8.keluar"<< endl
+            << "input : ";
+        cin >> menu;
+        if (menu == "1")
+        {
+            cout << "tampil data anggota"<<endl;
+            // tampildataanggota()
+        }
+        else if (menu == "2")
+        {
+            cout << "tampil buku "<< endl;
+        }
+        else if (menu == "3")
+        {
+            cout << "tambah admin "<<endl;
+            tambahadmin(admin);
+        }
+        else if (menu == "4")
+        {
+            cout << "tambah anggota"<<endl;
+            daftar(anggota);
+        }
+        else if (menu == "5")
+        {
+            cout << "tambah buku"<<endl;
+            tambahbuku();
+        }
+        else if (menu == "6")
+        {
+            cout << "peminjaman"<<endl;
+        }
+        else if (menu == "7")
+        {
+            cout << "pengembalian"<<endl;
+        }
+        else if (menu == "8")
+        {
+            cout << "super user memilih keluar!"<<endl;
+            break;
+        }
+        else{
+            cout << "input invalid!"<<endl;
+            cout << "==========="<<endl;
+            cout << endl;
+        }
+        // tambahbuku();
+        // tampildataanggota();
+
+    }
+}
+
+
 // hampir selesai atau malah sudah selesai
 void login(data_anggota anggota,data_admin admin){
     //deklarasi variabel
@@ -631,7 +773,7 @@ void login(data_anggota anggota,data_admin admin){
 
     cout << "login" <<endl;
     cout << "email : ";
-    cin.ignore();// menghilangkan beffer
+    cin.ignore();// menghilangkan buffer
     getline(cin,emaillog);
     cout << "password : ";
     getline(cin,passwordlog);
@@ -655,14 +797,14 @@ void login(data_anggota anggota,data_admin admin){
                 /*cout << kodeakun1 << endl;
                 cout << email1<<endl;
                 cout << pass1<<endl;
-                cout <<baris1<<endl;*/
-                /*for(int i = 1;i <= 8 && getline(bacafileanggota,baris1);i++){
+                cout <<baris1<<endl;
+                for(int i = 1;i <= 8 && getline(bacafileanggota,baris1);i++){
 			        cout << baris1 <<endl;
 			
-		        }*/
+                }
+                */
                 
-                
-            
+             
             }
         
         }
@@ -681,9 +823,10 @@ void login(data_anggota anggota,data_admin admin){
                 cout << posisi2 <<endl;
                 email2 = kodeakun2.substr(0,kodeakun2.find('-'));
                 pass2 = kodeakun2.substr(kodeakun2.find("-") + 1,kodeakun2.find('\n'));
-                cout << kodeakun2.length()<<endl;
-                cout << email2 <<endl;
-                cout << pass2<<endl;
+                // debug
+                // cout << kodeakun2.length()<<endl;
+                // cout << email2 <<endl;
+                // cout << pass2<<endl;
                 
             }
             
@@ -693,55 +836,47 @@ void login(data_anggota anggota,data_admin admin){
     // pengecekan apakah input login ada di data anggota atau admin atau malah akun tidak ada
     if (kodeakun1 == kodeakunlog) // jika anggota
     {
-        dasboranggota(anggota,kodeakun1,email1,pass1,baris1);
+        dasboranggota(anggota,kodeakun1,email1,pass1);
     }
     else if (kodeakun2 == kodeakunlog) // jika admin
     {
         dasboradmin();
     }
     else{ // jika tidak ditemukan 
-        cout << "akun tidak ditemukan!";
+        cout << "akun tidak ditemukan!"<<endl<<endl;
     }
     
 }
 
 
+// kode utama
 int main(){
-    // string menu;
-    // data_anggota anggota;
-    // data_admin admin;
-    // while (true)
-    // {
-    //     cout <<"1.login!"<<endl
-    //     << "2.daftar!"<<endl
-    //     << "3.keluar"<<endl
-    //     << "input : ";
-    //     cin >> menu;
-    //     if (menu == "1")
-    //     {
-    //         login(anggota,admin);
-    //         break;
-    //     }
-    //     else if (menu == "2")
-    //     {
-    //         daftar(anggota);    
-            
-    //         login(anggota,admin);
-    //         break;
-    //     }
-    //     else if (menu == "3")
-    //     {
-    //         cout << "user memilih keluar"<<endl;
-    //         break;
-    //     }
+
+    string menu;
+    data_anggota anggota;
+    data_admin admin;
+    while (true)
+    {
+        cout <<"1.login!"<<endl
+        << "2.keluar"<<endl
+        << "input : ";
+        cin >> menu;
+        if (menu == "1")
+        {
+            login(anggota,admin);
+        }
+
+        else if (menu == "2")
+        {
+            cout << "user memilih keluar"<<endl;
+            break;
+        }
         
-    //     else{
-    //         cout << "input invalid!"<<endl;
-    //         cout <<endl;
-    //         continue;
-    //     }
+        else{
+            cout << "input invalid!"<<endl;
+            cout <<endl;
+            continue;
+        }
         
-    // }
-    // tambahbuku();
-    kodebuku();
+    }
 }

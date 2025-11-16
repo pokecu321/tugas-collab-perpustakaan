@@ -1,1 +1,19 @@
 kode : admin@gmail.com-admin#1234
+
+kode akun : sudo-arch
+nama : admin adin
+id : 000001
+email : sudo
+password : arch
+
+kode akun : superadmin-admin
+nama : adin
+id : 000004
+email : superadmin
+password : admin
+kode akun : sigma-admin
+nama : admin sigma
+id : 000003
+email : sigma
+password : admin
+
