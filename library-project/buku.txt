@@ -26,3 +26,37 @@ pengarang : a
 penerbit : a
 tahun terbit : a
 
+judul buku : tes
+isbn : 1234567890123
+pengarang : tes
+penerbit : tes
+tahun terbit : tes
+
+judul buku : bahasa jawa
+isbn : 1234567890123
+id : 150006
+pengarang : adin
+penerbit : adin
+tahun terbit : adin
+
+judul buku : a
+isbn : aaaaaaaaaaaaa
+id : 110007
+pengarang : a
+penerbit : a
+tahun terbit : 32766
+
+judul buku : hai
+isbn : 9786081233211
+id : 150008
+pengarang : smea
+penerbit : sea
+tahun terbit : 2026
+
+judul buku : pancong
+isbn : 9786081236542
+id : 140009
+pengarang : chef juna
+penerbit : master chef
+tahun terbit : 2023
+

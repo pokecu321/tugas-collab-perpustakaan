@@ -17,3 +17,21 @@ id : 000003
 email : sigma
 password : admin
 
+kode akun : admin@admin-atemin
+nama : adin si admin
+id : 000004
+email : admin@admin
+password : atemin
+
+kode akun : a-a
+nama : a
+id : 000005
+email : a
+password : a
+
+kode akun : haiakuadmmin-admin sigma
+nama : adin sigmma banget coy
+id : 000006
+email : haiakuadmmin
+password : admin sigma
+

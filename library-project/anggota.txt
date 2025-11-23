@@ -126,3 +126,33 @@ alamat : desa pucanglaban
 email : member
 password : member
 status akun : 0
+
+kode akun : dindon@gmail.com-cpp
+nama : adin si dindon cpp
+id : 000016
+kode : 20091210010
+ttl : tulungagung, 10, 12, 2009
+alamat : pucanglaban
+email : dindon@gmail.com
+password : cpp
+status akun : 0
+
+kode akun : asdf-asdf
+nama : dindon sigma banget coy cpp
+id : 000017
+kode : 20510001
+ttl : the gunung, 10, 05, 2
+alamat : a
+email : asdf
+password : asdf
+status akun : 0
+
+kode akun : ultah-buyut sekarang 16
+nama : kuadrat 
+id : 000018
+kode : 20091123006
+ttl : the gunung, 23, 11, 2009
+alamat : bumi
+email : ultah
+password : buyut sekarang 16
+status akun : 0

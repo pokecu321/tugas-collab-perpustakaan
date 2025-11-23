@@ -41,11 +41,11 @@ struct data_admin
 
 struct ISBN // Prefix – Kode Negara – Kode Penerbit – Nomor Buku – Check Digit
 {
-    string previx;// 978
-    string kodenegara;// milik indonesia 608
-    string kodepenerbit;
-    string nomorbuku;
-    string checkdigit;// rumus check digit = (10 - (sum(products) % 10)) % 10
+    int previx;// 978
+    int kodenegara;// milik indonesia 608
+    int kodepenerbit;
+    int nomorbuku;
+    int checkdigit;// rumus check digit = (10 - (sum(products) % 10)) % 10
     
 };
 
@@ -78,14 +78,8 @@ void fiksi(){
 
 }
 
-void nonfiksi(){
-    // Sejarah
-    // Sains populer
-    // Biografi
-    // Sosial & budaya
-    // Motivasi / pengembangan diri
-    // Teknologi dasar
-    // Kesehatan
+string nonfiksi(){
+   
     int status;
     while (true)
     {
@@ -112,24 +106,13 @@ void nonfiksi(){
         }
         
     }
-    cout << status <<endl;
     string statusstr = to_string(status);
-    cout << statusstr<<endl;
-    string kode = "1" + statusstr;
-    int kodeint;
-    int temp;
-    for (int i = 0; i < 2; i++)
-    {
-        temp = kode[i] - '0';
-        kodeint = temp;
-    }
-    
-    cout << kodeint<<endl;
+    return "1" + statusstr;
 }
 
-void kodebuku(/*int hasilkodebuku[],string nomorbukustr*/){
+string kodebuku(){
     string status;
-
+    string kode;
     while (true)
     {
         cout << "status"<<endl
@@ -144,119 +127,20 @@ void kodebuku(/*int hasilkodebuku[],string nomorbukustr*/){
         else if (status == "1")
         {
             cout << "nonfiksi"<<endl;
-            nonfiksi();
+            kode = nonfiksi();
+            cout << "tes lagi : "<<kode<<endl;
             break;
         }
         else{
             cout << "input invalid!"<<endl;
         }
+
     }
-    
-    
-    
-    
-}
-
-
-void tambahbuku(){
-    string judulbuku,penerbit,pengarang,tahunterbit;
-    string isbn;
-    int stock;
-    int urutanbuku = 1,id = 1; //  urutan buku dan id itu beda,urutan buku untuk isbn
-
-    // input
-    #pragma region input
-    cin.ignore();
-    cout << "masukkan judul buku : ";
-    getline(cin,judulbuku);
-    cout << "penerbit : ";
-    getline(cin,penerbit);
-    cout << "pengarang : ";
-    getline(cin,pengarang);
-    cout << "tahun terbit : ";
-    getline(cin,tahunterbit);
-    
-    while (true)
-    {
-        cout <<endl
-            << "======"<<endl;
-        cout << "isbn "<<endl
-            << "prefiks(default tidak boleh di ganti): 978"<<endl
-            << "kode negara(indonesia : 608)"<<endl
-            << "kode penerbit(biasanya perpustakaan)"<<endl
-            << "urutan judul buku"<<endl
-            << "check digit"<<endl
-            << "isbn berisi 13 digit!"<<endl
-            <<"input : ";
-        getline(cin,isbn);
-        
-        
-        if (isbn.length() == 13)
-        {
-            cout << "berhasil input isbn!"<<endl;
-            break;
-        }
-        else{
-            cout << "format salah!"<<endl
-                << "karena jumlah digit adalah "<< isbn.length()<< " bukan 13!" <<endl;
-            continue;
-        }
-    
-        
-    }
-    
-
-
-
-    #pragma endregion
-
-    //urutan buku
-    #pragma region urutan buku isbn
-
-    {
-        string baris;
-        ifstream bacafile("buku.txt");
-        if (bacafile.is_open())
-        {
-            while (getline(bacafile,baris))
-            {
-                size_t posisi = baris.find("judul buku :");
-                if (posisi != string::npos)
-                {
-                    if (baris.find(judulbuku) != string::npos)
-                    {
-                        urutanbuku = 1;
-                        break;
-                    }
-                    else{;
-                        urutanbuku++;
-                    }
-                }
-                
-            }
-            cout << urutanbuku<<endl<<"diluar while"<<endl;
-            
-        }
-        else{
-            cout << "gagal membuka file!"<<endl;
-        }
-    }
-
-    string urutanbukustr = to_string(urutanbuku);
-    if (urutanbuku < 10)
-    {
-        urutanbukustr = "00" + urutanbukustr;
-    }
-    else if (urutanbuku < 100)
-    {
-        urutanbukustr = "0" + urutanbukustr;
-    }
-    
-    #pragma endregion
 
     //id
     #pragma region id buku
-
+    
+    int id = 1;
     {
         ifstream bacafile("buku.txt");
         string baris;
@@ -275,42 +159,197 @@ void tambahbuku(){
     string idstr = to_string(id);
     if (id < 10)
     {
-        idstr = "00000" + idstr;
+        idstr = kode + "000" + idstr;
     }
     else if (id < 100)
     {
-        idstr = "0000" + idstr;
+        idstr = kode + "00" + idstr;
     }
     else if (id < 1000)
     {
-        idstr = "000" + idstr;
+        idstr = kode + "0" + idstr;
     }
     else if (id < 10000)
     {
-        idstr = "00" + idstr;
+        idstr =  kode + idstr;
     }
     else if (id < 100000)
     {
-        idstr = "0" + idstr;
+        idstr =  kode + idstr;
     }
-    
+    cout << "kode : "  <<idstr<<endl;
     #pragma endregion
     
-    int hasilisbn[13];
-    // isbn(hasilisbn,urutanbukustr);
+    return idstr;
+
+}
+
+
+void tambahbuku(){
+    // inisialisasi variabel
+    string judulbuku,penerbit,pengarang,tahunterbitstr;
+    string isbnstr;
+    ISBN isbn;
+    int stock,tahunterbit;
+
+    // input
+    #pragma region input
+    cin.ignore();
+    cout << "masukkan judul buku : ";
+    getline(cin,judulbuku);
+    cout << "penerbit : ";
+    getline(cin,penerbit);
+    cout << "pengarang : ";
+    getline(cin,pengarang);
+    while (true)
+    {
+        
+        cout << "tahun terbit : ";
+        cin >> tahunterbit;
+        tahunterbitstr = to_string(tahunterbit);
+        if (cin && tahunterbit &&tahunterbitstr.length() == 4 )
+        {
+            break;
+        }
+        else{
+            cout << "gagal"<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        }
+        
+        
+    }
+    #pragma region isbn coy
+    while (true)
+    {
+        cout <<endl
+            << "======"<<endl;
+        cout << "isbn "<<endl
+            << "prefiks(default tidak boleh di ganti): 978/979"<<endl
+            << "kode negara(indonesia : 608)"<<endl
+            << "kode penerbit(biasanya perpustakaan)"<<endl
+            << "urutan judul buku / nomor buku"<<endl
+            << "check digit"<<endl
+            << "isbn berisi 13 digit!"<<endl;
+        
+        // prefiks
+        while (true)
+        {
+            cout <<"input prefiks: ";
+            cin >> isbn.previx;
+            if (cin && isbn.previx)
+            {
+                break;
+            }
+            else
+            {
+                cout << "input invalid!"<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            }
+        }
+
+        // kode negara
+        while (true)
+        {
+            cout <<"input kode negara: ";
+            cin >> isbn.kodenegara;
+            if (cin && isbn.kodenegara)
+            {
+                break;
+            }
+            else
+            {
+                cout << "input invalid!"<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            }
+        }
+
+        // kode pernerbit
+        while (true)
+        {
+            cout <<"input penerbit: ";
+            cin >> isbn.kodepenerbit;
+            if (cin && isbn.kodepenerbit)
+            {
+                break;
+            }
+            else
+            {
+                cout << "input invalid!"<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            }
+        }
+
+        // nomor buku
+        while (true)
+        {
+            cout <<"input nomor buku : ";
+            cin >> isbn.nomorbuku;
+            if (cin && isbn.nomorbuku)
+            {
+                break;
+            }
+            else
+            {
+                cout << "input invalid!"<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            }
+        }
+
+        // checkdigit
+        while (true)
+        {
+            cout <<"input check digit atau digit terakhir : ";
+            cin >> isbn.checkdigit;
+            if (cin && isbn.checkdigit)
+            {
+                break;
+            }
+            else
+            {
+                cout << "input invalid!"<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            }
+        }
+
+        isbnstr = to_string(isbn.previx) + to_string(isbn.kodenegara) + to_string(isbn.kodepenerbit) + to_string(isbn.nomorbuku) + to_string(isbn.checkdigit);
+        cout << "isbn : "<< isbnstr<<endl;
+        if (isbnstr.length() == 13)
+        {
+            cout << "berhasil"<<endl;
+            break;
+        }
+        else{
+            cout << "invalid!"<<endl
+                << "digit adalah " << isbnstr.length()<< " bukan 13!"<<endl;
+        }
+        
+    }
+
+    #pragma endregion
+
+    #pragma endregion
+
+    
+    string kode = kodebuku();
 
     {
         ofstream tulisfile("buku.txt",ios::app);
         if (tulisfile.is_open())
         {
             tulisfile << "judul buku : " << judulbuku << endl;
-            tulisfile << "isbn : "<<isbn;
+            tulisfile << "isbn : "<<isbnstr;
             // for (int i = 0; i < 13; i++)
             // {
             //     tulisfile << hasilisbn[i];
             // }
             tulisfile<< endl;
-            tulisfile << "id : "<< idstr<<endl;
+            tulisfile << "id : "<< kode<<endl;
             tulisfile << "pengarang : " << pengarang << endl;
             tulisfile << "penerbit : " << penerbit << endl;
             tulisfile << "tahun terbit : "<<tahunterbit<<endl;
@@ -327,15 +366,17 @@ void tambahbuku(){
 // sudah selesai(jika tidak ada revisi)
 void profileanggota(data_anggota anggota,string kodeakun,string email,string password){
     cout <<endl<< "profile"<<endl;
+    // inisialisai variabel
     string baris;
     ifstream bacafile("anggota.txt");
+    // pengecekan apakah file terbuka atau tidak
     if (bacafile.is_open())
     {
         
-        while (getline(bacafile,baris))
+        while (getline(bacafile,baris)) // memasukkan isi file anggota ke baris
         {
             
-            size_t posisi = baris.find(kodeakun);
+            size_t posisi = baris.find(kodeakun);// pencarian profile yang sama dengan kode akun
             if (posisi != string::npos)
             {
                 for(int i = 1;i <= 8 && getline(bacafile,baris);i++){
@@ -362,7 +403,6 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
     {
         cout <<endl;
         cout << "dasbor anggota"<<endl;
-        // cout << "hai "<< email <<endl;
         cout << "1.cari"<<endl
             << "2.profile"<<endl
             << "3.keluar"<<endl
@@ -380,7 +420,7 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
         }
         else if (menu == "3")
         {
-            cout << "user memilih keluar!";
+            cout << "user memilih keluar!"<<endl;
             break;
         }
         else{ // jika input tidak sesuai dengan yang ditampilkan maka looping
@@ -434,7 +474,7 @@ void tambahadmin(data_admin admin){
     ofstream tulisfile("admin.txt",ios::app);
     string id,email,passw,nama,kodeakun;
     string konfirmasi;
-    int urutan = 1;
+    int urutan = 1; // urutan id admin
     if(bacafile.is_open())
     {
         string baris;
@@ -606,6 +646,19 @@ void daftar(data_anggota anggota){
     //kode akun(untuk mempermudah saat sesi login)
     kodeakun = anggota.email +"-"+ anggota.password;
     
+    // tanggal
+    if (anggota.ttl.tgl < 10)
+    {
+        tgl = "0" + tgl;
+    }
+    
+    // bulan
+    if (anggota.ttl.bulan < 10)
+    {
+        bulan = "0" + bulan;
+    }
+    
+
     // pembuatan id angka pada akun
     {
         ifstream bacafile("anggota.txt");
@@ -711,6 +764,7 @@ void dasboradmin(){
             << "8.keluar"<< endl
             << "input : ";
         cin >> menu;
+        
         if (menu == "1")
         {
             cout << "tampil data anggota"<<endl;
@@ -755,7 +809,7 @@ void dasboradmin(){
         }
         // tambahbuku();
         // tampildataanggota();
-
+        
     }
 }
 
@@ -851,7 +905,6 @@ void login(data_anggota anggota,data_admin admin){
 
 // kode utama
 int main(){
-
     string menu;
     data_anggota anggota;
     data_admin admin;
@@ -879,4 +932,5 @@ int main(){
         }
         
     }
+    
 }
