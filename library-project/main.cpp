@@ -74,7 +74,37 @@ struct peminjaman
 // isbn,kode buku,login daftar,member tidak bisa pinjam atau pengemmbalian liwat program 
 
 
-void fiksi(){
+string fiksi(){
+    int status;
+    while (true)
+    {
+        
+        cout << "fiksi"<<endl
+            << "1.fiksi umum"<<endl
+            << "2.fantasy"<<endl
+            << "3.fiksi ilmiah"<<endl
+            << "4.misteri / detektif"<<endl
+            << "5.horor"<<endl
+            << "6.petualangan"<<endl
+            << "7.roman"<<endl
+            << "8.fiksi sejarah"<<endl
+            << "9.young adult"<<endl
+            << "input : ";
+        cin >> status;
+        if (cin && status <= 9)
+        {
+            break;
+        }
+        else{
+            cout << "input invalid!"<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        }
+
+    }    
+
+    string statusstr = to_string(status);
+    return "0" + statusstr;
 
 }
 
@@ -122,6 +152,8 @@ string kodebuku(){
         if (status == "0")
         {
             cout << "fiksi"<<endl;
+            kode = fiksi();
+            cout << "fiksi : "<<kode;
             break;
         }
         else if (status == "1")
@@ -237,7 +269,7 @@ void tambahbuku(){
         {
             cout <<"input prefiks: ";
             cin >> isbn.previx;
-            if (cin && isbn.previx)
+            if (cin && isbn.previx && isbn.previx == 978 || isbn.previx == 979)
             {
                 break;
             }
@@ -905,6 +937,7 @@ void login(data_anggota anggota,data_admin admin){
 
 // kode utama
 int main(){
+    
     string menu;
     data_anggota anggota;
     data_admin admin;

@@ -60,3 +60,24 @@ pengarang : chef juna
 penerbit : master chef
 tahun terbit : 2023
 
+judul buku : 
+isbn : 9786086081221
+id : 0010
+pengarang : 
+penerbit : 
+tahun terbit : 1234
+
+judul buku : bahasa inglish
+isbn : 1231231231231
+id : 070011
+pengarang : eqi the sigma
+penerbit : eqi and frieren
+tahun terbit : 1945
+
+judul buku : eqi aseli banget
+isbn : 9781231231231
+id : 090012
+pengarang : eqi the sigma
+penerbit : esemkita
+tahun terbit : 1945
+
