@@ -466,7 +466,7 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
 
 
 // belum selesai
-/*
+
 void tampildataanggota(){
     ifstream bacafile("anggota.txt");
     string baris;
@@ -497,10 +497,10 @@ void tampildataanggota(){
     }
     
 }
-*/
 
 
 // sudah selesai
+
 void tambahadmin(data_admin admin){
     ifstream bacafile("admin.txt");
     ofstream tulisfile("admin.txt",ios::app);
@@ -937,7 +937,7 @@ void login(data_anggota anggota,data_admin admin){
 
 // kode utama
 int main(){
-    
+    /*
     string menu;
     data_anggota anggota;
     data_admin admin;
@@ -965,5 +965,7 @@ int main(){
         }
         
     }
-    
+    */
+   
+
 }
