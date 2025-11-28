@@ -35,3 +35,9 @@ id : 000006
 email : haiakuadmmin
 password : admin sigma
 
+kode akun : arch-sudo
+nama : sudo
+id : 000007
+email : arch
+password : sudo
+

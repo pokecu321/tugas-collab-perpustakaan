@@ -1,158 +1,60 @@
 
-nama : adin sigma
-kode : 20091210001
-ttl : tulungagung, 10, 12, 2009
-alamat : pucanglaban
-email : dinsigma@archbtw.com
-password : i am using arch btw
-kode akun : adinsigma@archbtw.com-i am using arch btw
-
-nama : adin lagi
-kode : 20091210002
-ttl : tulungagung, 10, 12, 2009
-alamat : pucanglaban
-email : iamusingarchbtw@ubuntubtw.com
-password : ubuntu
-kode akun : iamusingarchbtw@ubuntubtw.comubuntu
-
-nama : adin lagi coyyyyyyyy
-kode : 20091210003
-ttl : tulungagung, 10, 12, 2009
-alamat : pucanglaban
-email : adin@linux.com
-password : hai
-kode akun : adin@linux.comhai
-
-nama : adin ga tau berapa
-kode : 20091210004
-ttl : tulungagung, 10, 12, 2009
-alamat : tulungagung
-email : adin@mungkin.com
-password : ga tau
-kode akun : adin@mungkin.com-ga tau
-
-nama : adin lagi ga tahu ke berapa
-kode : 20091210005
-ttl : tulungagung, 10, 12, 2009
-alamat : pucanglaban
-email : pokecu@arch.com
-password : i am using arch btw
-kode akun : pokecu@arch.com-i am using arch btw
-
-nama : adin sigma banget
-kode : 20091210006
-ttl : tulungagung, 10, 12, 2009
-alamat : pucanglaban
-email : hai@gmail.com
-password : hai juga
-kode akun : hai@gmail.com-hai juga
---cameo--
-nama : buyut kuadrat
-kode : 20091123001
-ttl : tulungagung, 23, 11, 2009
-alamat : selorejo
-email : tuwa@gmail.com
-password : gtw
-kode akun : tuwa@gmail.com-gtw
-
-nama : kuadrat
-kode : 20091123001
-ttl : tulungagung, 23, 11, 2009
-alamat : selorejo
-email : kuadrat23@gmail.com
-password : gwsigma
-kode akun : kuadrat23@gmail.com-gwsigma
-
-nama : buyut
-kode : 20091123001
-ttl : tulungagung, 23, 11, 2009
-alamat : selorejo
-email : tuwaaaa@gmail.com
-password : gw ga tuwa
-kode akun : tuwaaaa@gmail.com-gw ga tuwa
-
-nama : dan kuadrat
-kode : 20091123003
-ttl : tulungagung, 23, 11, 2009
-alamat : selorejo
-email : ewpih23@gmail.com
-password : ewpih si sigma
-kode akun : ewpih23@gmail.com-ewpih si sigma
-
-nama : buyut lagi
-kode : 20091123005
-ttl : tulungagung, 23, 11, 2009
-alamat : selorejo
-email : hmm@gmail.com
-password : sigma
-kode akun : hmm@gmail.com-sigma
---/cameo--
-
-nama : dindon lagi wok
-id : 000012
-kode : 20091210007
-ttl : tulungagung, 10, 12, 2009
-alamat : dusun pucanglaban
-email : gtw@gmail.com
-password : mana gw tahu
-kode akun : gtw@gmail.com-mana gw tahu
-
 kode akun : alo-alo
 nama : dindon cpp
-id : 000013
-kode : 20091210008
+id : 000001
+kode : 20091210001
 ttl : tulungagung, 10, 12, 2009
 alamat : desa pucanglaban
 email : alo
 password : alo
-status akun : 0
-
-kode akun : yudi-pai
-nama : udin
-id : 000014
-kode : 199068001
-ttl : tulungagung, 8, 6, 1990
-alamat : bojonwgoro
-email : yudi
-password : pai
-status akun : 144
+status akun : 1
 
 kode akun : member-member
 nama : lagi lagi adin
-id : 000015
-kode : 20091210009
+id : 000002
+kode : 20091210002
 ttl : tulungagung, 10, 12, 2009
 alamat : desa pucanglaban
 email : member
 password : member
-status akun : 0
+status akun : 1
 
 kode akun : dindon@gmail.com-cpp
 nama : adin si dindon cpp
-id : 000016
-kode : 20091210010
+id : 000003
+kode : 20091210003
 ttl : tulungagung, 10, 12, 2009
 alamat : pucanglaban
 email : dindon@gmail.com
 password : cpp
-status akun : 0
-
-kode akun : asdf-asdf
-nama : dindon sigma banget coy cpp
-id : 000017
-kode : 20510001
-ttl : the gunung, 10, 05, 2
-alamat : a
-email : asdf
-password : asdf
-status akun : 0
+status akun : 1
 
 kode akun : ultah-buyut sekarang 16
 nama : kuadrat 
-id : 000018
-kode : 20091123006
+id : 000004
+kode : 20091123001
 ttl : the gunung, 23, 11, 2009
 alamat : bumi
 email : ultah
 password : buyut sekarang 16
-status akun : 0
+status akun : 1
+
+kode akun : adinsigma@gmail.com-hallo
+nama : muhammad saifuddin
+id : 000005
+kode : 20091210004
+ttl : tulungagung, 10, 12, 2009
+alamat : pucanglaban
+email : adinsigma@gmail.com
+password : hallo
+status akun : 1
+
+kode akun : adin@gmail.com-sudo
+nama : m.saifuddin
+id : 000006
+kode : 20090605001
+ttl : surabaya, 05, 06, 2009
+alamat : pucanglaban
+email : adin@gmail.com
+password : sudo
+status akun : 1

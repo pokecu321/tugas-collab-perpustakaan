@@ -16,7 +16,7 @@ struct data_anggota
 {
     string id;//6 digit
     string kode;
-    // kode berisi 9 digit :
+    // kode berisi 11 digit :
     // 1. 4 digit tahun lahir
     // 2. 2 digit bulan lahir
     // 3. 2 digit tanggal lahir
@@ -26,7 +26,7 @@ struct data_anggota
     TTL ttl;
     string email;
     string password;
-    bool status;// status berisi 1/0
+    bool status = 1;// status berisi 1/0
     // 1 = belum mengembalikan
     // 0 = sudah menembalikan
 };
@@ -465,12 +465,13 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
 }
 
 
-// belum selesai
+// sudah selesai
 
 void tampildataanggota(){
      
     int totalbaris = 0,index = 0;
     
+    // mencari total baris
     {
         ifstream bacafile("anggota.txt");
         if (bacafile.is_open())
@@ -487,14 +488,28 @@ void tampildataanggota(){
             }
         }
     }
-    cout << totalbaris<<endl;
-
+    
+    // cout << totalbaris<<endl;
+    string tmp,menu,idstr[totalbaris];
     string nama[totalbaris],ttl[totalbaris],alamat[totalbaris],email[totalbaris],password[totalbaris],statusakun[totalbaris],kodeakun[totalbaris];
-    int id[totalbaris],kode[totalbaris];
-    string tmp;
+    long long id[totalbaris],kode[totalbaris];
+    /* penjelasan 
+        kenapa long long?kenapa tidak int?
+        karena batas int adalah 2147483647 atau 10 digit,sedangkan
+        isi dari kode akun berisi 11 digit.
+        jika bertanya "kenapa kok tidak long bang?",
+        karena long tidak pasti nilai nya/bit nya,yang mana 
+        pada saat saya baca baca di ai,long terkadang 32 bit dan 64 bit,
+        sedangkan int 32 bit dan long long adalah 64 bit
+        
+        yapping dikit hehe
+        -adin
+    */
+    
+    // ambil data
     {
-        string nama[totalbaris],ttl[totalbaris],alamat[totalbaris],email[totalbaris],password[totalbaris],statusakun[totalbaris],kodeakun[totalbaris];
-        int id[totalbaris],kode[totalbaris];
+        // string nama[totalbaris],ttl[totalbaris],alamat[totalbaris],email[totalbaris],password[totalbaris],statusakun[totalbaris],kodeakun[totalbaris];
+        // long long id[totalbaris],kode[totalbaris];
         
         ifstream bacafile("anggota.txt");
         if (bacafile.is_open())
@@ -505,7 +520,7 @@ void tampildataanggota(){
 
             while (getline(bacafile,baris))
             {
-                // cout << "hai"<<endl;
+               
                 if ((baris.find("nama : ")) != string::npos)
                 {
                     nama[index] = baris.substr(baris.find(":")+1);//mengambil nilai setelah kata kunci ":"
@@ -513,9 +528,9 @@ void tampildataanggota(){
                         nama[index].erase(0,1);
                 
                     }
-                    cout << nama[index]<<endl;
+                    // cout << nama[index]<<endl;
                 }
-                // cout << "hallo"<<endl;
+
                 if ((baris.find("kode akun : ")) != string::npos)
                 {
                     kodeakun[index] = baris.substr(baris.find(":") + 1);
@@ -523,23 +538,32 @@ void tampildataanggota(){
                     {
                         kodeakun[index].erase(0,1);
                     }
-                    cout << kodeakun[index]<<endl;
+                    // cout << kodeakun[index]<<endl;
                     
                 }
+
                 if ((baris.find("id : ")) != string::npos)
                 {
                     string tmp = baris.substr(baris.find(":") + 1);
-                    id[index] = atof(tmp.c_str());
-                }
-                if ((baris.find("kode : ")) != string::npos)
-                {
-                    kode[index] = baris.substr(baris.find(":") + 1);
-                    while (kode[index][0] == ' ')
+                    idstr[index] = tmp;
+                    while (idstr[index][0] == ' ')
                     {
-                        kode[index].erase(0,1);
+                        idstr[index].erase(0,1);
                     }
                     
+                    id[index] = atoi(tmp.c_str());
+                    // cout << tmp<<endl;
+                    // cout << id[index]<<endl;
                 }
+
+                if ((baris.find("kode : ")) != string::npos)
+                {
+                    tmp = baris.substr(baris.find(":") + 1);
+                    kode[index] = stoll(tmp.c_str());
+                    // cout << tmp<<endl;
+                    // cout << kode[index]<<endl;
+                }
+
                 if ((baris.find("ttl : ")) != string::npos)
                 {
                     ttl[index] = baris.substr(baris.find(":") + 1);\
@@ -549,6 +573,7 @@ void tampildataanggota(){
                     }
                     
                 }
+
                 if ((baris.find("alamat : ") != string::npos))
                 {
                     alamat[index] = baris.substr(baris.find(":") + 1);
@@ -558,15 +583,17 @@ void tampildataanggota(){
                     }
                     
                 }
+
                 if ((baris.find("email : ")) != string::npos)
                 {
                     email[index] = baris.substr(baris.find(":") + 1);
-                    while (email[index][0] == '0')
+                    while (email[index][0] == ' ')
                     {
                         email[index].erase(0,1);
                     }
                     
                 }
+
                 if ((baris.find("password : ")) != string::npos)
                 {
                     password[index]= baris.substr(baris.find(":") + 1);
@@ -576,6 +603,7 @@ void tampildataanggota(){
                     }
                     
                 }
+
                 if ((baris.find("status akun : ")) != string::npos)
                 {
                     statusakun[index] = baris.substr(baris.find(":") + 1);
@@ -583,18 +611,76 @@ void tampildataanggota(){
                     {
                         statusakun[index].erase(0,1);
                     }
+                    index++;
+                }
+                                                
+            }
+            
+        
+        
+        }   
+    }
+    
+
+
+    // tampilan
+    while (true)
+    {    
+        cout << "1.id"<<endl
+            << "2.kode"<<endl
+            << "input : ";
+        cin >> menu;
+        if (menu == "1")
+        {
+            cout << "id"<<endl
+                <<"id \t| kode\t      |status| ttl \t\t\t | nama \t\t | email \t\t | passwd \t|"<<endl;
+            for (int i = 0; i < index; i++)
+            {
+                cout << idstr[i]<<"\t|"<<kode[i]<< "  |"<< statusakun[i]<<"    |"<<ttl[i]<<"\t |" <<nama[i] <<"\t\t |" <<email[i]<< "\t |"<< password[i]<< "\t '|"<<endl; 
+            }
+            
+            break;
+        }
+        else if (menu == "2")
+        {
+            cout << "kode"<<endl;
+            // sort
+            for (int i = 0; i < index - 1 ; i++)
+            {
+                for (int j = 0; j < index - i - 1; j++)
+                {
+                    if (kode[j] > kode[j + 1])
+                    {
+                        swap(kode[j],kode[j + 1]);
+                        swap(nama[j],nama[j + 1]);
+                        swap(id[j],id[j + 1]);
+                        swap(idstr[j],idstr[j + 1]);
+                        swap(ttl[j],ttl[j + 1]);
+                        swap(statusakun[j],statusakun[j + 1]);
+                        swap(email[j],email[j + 1]);
+                        swap(password[j],password[j + 1]);
+                        swap(kodeakun[j],kodeakun[j + 1]);
+
+                    }
                     
                 }
                 
-                
-                
-                
             }
-            // cout << "tes"<<endl;
-        }   
-    }
-    cout << nama[1]<<endl;
+            cout << "id"<<endl
+                <<"kode\t   | id\t    |status| ttl \t\t\t | nama \t\t | email \t\t | passwd \t|"<<endl;
+            for (int i = 0; i < index; i++)
+            {
+                cout << kode[i]<<"|"<<idstr[i]<< "  |"<< statusakun[i]<<"    |"<<ttl[i]<<"\t |" <<nama[i] <<"\t\t |" <<email[i]<< "\t |"<< password[i]<< "\t '|"<<endl; 
+            }
 
+            break;
+        }
+        else{
+            cout << "invalid!"<<endl;
+            continue;
+        }
+        cout << endl<<"================="<<endl;
+    }
 }
 
 
@@ -899,7 +985,7 @@ void dasboradmin(){
         if (menu == "1")
         {
             cout << "tampil data anggota"<<endl;
-            // tampildataanggota()
+            tampildataanggota();
         }
         else if (menu == "2")
         {
@@ -1036,10 +1122,11 @@ void login(data_anggota anggota,data_admin admin){
 
 // kode utama
 int main(){
-    /*
+    
     string menu;
     data_anggota anggota;
     data_admin admin;
+    
     while (true)
     {
         cout <<"1.login!"<<endl
@@ -1064,8 +1151,7 @@ int main(){
         }
         
     }
-    */
-    tampildataanggota();
+    
     
     
 }
