@@ -468,34 +468,133 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
 // belum selesai
 
 void tampildataanggota(){
-    ifstream bacafile("anggota.txt");
-    string baris;
-    int totalbaris = 0;
-    if (bacafile.is_open())
-    {
-        while (getline(bacafile,baris))
-        {
-            totalbaris++;
-        }
-        cout << totalbaris<<endl; 
-        string nama[totalbaris],id[totalbaris],kode[totalbaris],ttl[totalbaris],alamat[totalbaris],email[totalbaris],password[totalbaris],statusakun[totalbaris],kodeakun[totalbaris];
-        
-
-        while (getline(bacafile,kodeakun))
-        {
-            getline(bacafile,nama);
-            getline(bacafile,id);
-            getline(bacafile,kode);
-            getline(bacafile,ttl);
-            getline(bacafile,alamat);
-            getline(bacafile,email);
-            getline(bacafile,password);
-            getline(bacafile,statusakun);
-        }
-        
-        
-    }
+     
+    int totalbaris = 0,index = 0;
     
+    {
+        ifstream bacafile("anggota.txt");
+        if (bacafile.is_open())
+        {
+            string baris1;
+            while (getline(bacafile,baris1))
+            {
+                size_t posisi = baris1.find("nama : ");
+                if (posisi != string::npos)
+                {
+                    totalbaris++;
+                }
+
+            }
+        }
+    }
+    cout << totalbaris<<endl;
+
+    string nama[totalbaris],ttl[totalbaris],alamat[totalbaris],email[totalbaris],password[totalbaris],statusakun[totalbaris],kodeakun[totalbaris];
+    int id[totalbaris],kode[totalbaris];
+    string tmp;
+    {
+        string nama[totalbaris],ttl[totalbaris],alamat[totalbaris],email[totalbaris],password[totalbaris],statusakun[totalbaris],kodeakun[totalbaris];
+        int id[totalbaris],kode[totalbaris];
+        
+        ifstream bacafile("anggota.txt");
+        if (bacafile.is_open())
+        {
+            
+            cout << totalbaris<<endl;
+            string baris;
+
+            while (getline(bacafile,baris))
+            {
+                // cout << "hai"<<endl;
+                if ((baris.find("nama : ")) != string::npos)
+                {
+                    nama[index] = baris.substr(baris.find(":")+1);//mengambil nilai setelah kata kunci ":"
+                    while (nama[index][0] == ' '){//mengapus spasi di awal kalimat supaya rapi
+                        nama[index].erase(0,1);
+                
+                    }
+                    cout << nama[index]<<endl;
+                }
+                // cout << "hallo"<<endl;
+                if ((baris.find("kode akun : ")) != string::npos)
+                {
+                    kodeakun[index] = baris.substr(baris.find(":") + 1);
+                    while (kodeakun[index][0] == ' ')
+                    {
+                        kodeakun[index].erase(0,1);
+                    }
+                    cout << kodeakun[index]<<endl;
+                    
+                }
+                if ((baris.find("id : ")) != string::npos)
+                {
+                    string tmp = baris.substr(baris.find(":") + 1);
+                    id[index] = atof(tmp.c_str());
+                }
+                if ((baris.find("kode : ")) != string::npos)
+                {
+                    kode[index] = baris.substr(baris.find(":") + 1);
+                    while (kode[index][0] == ' ')
+                    {
+                        kode[index].erase(0,1);
+                    }
+                    
+                }
+                if ((baris.find("ttl : ")) != string::npos)
+                {
+                    ttl[index] = baris.substr(baris.find(":") + 1);\
+                    while (ttl[index][0] == ' ')
+                    {
+                        ttl[index].erase(0,1);
+                    }
+                    
+                }
+                if ((baris.find("alamat : ") != string::npos))
+                {
+                    alamat[index] = baris.substr(baris.find(":") + 1);
+                    while (alamat[index][0] == ' ')
+                    {
+                        alamat[index].erase(0,1);
+                    }
+                    
+                }
+                if ((baris.find("email : ")) != string::npos)
+                {
+                    email[index] = baris.substr(baris.find(":") + 1);
+                    while (email[index][0] == '0')
+                    {
+                        email[index].erase(0,1);
+                    }
+                    
+                }
+                if ((baris.find("password : ")) != string::npos)
+                {
+                    password[index]= baris.substr(baris.find(":") + 1);
+                    while (password[index][0] == ' ')
+                    {
+                        password[index].erase(0,1);
+                    }
+                    
+                }
+                if ((baris.find("status akun : ")) != string::npos)
+                {
+                    statusakun[index] = baris.substr(baris.find(":") + 1);
+                    while (statusakun[index][0] == ' ')
+                    {
+                        statusakun[index].erase(0,1);
+                    }
+                    
+                }
+                
+                
+                
+                
+            }
+            // cout << "tes"<<endl;
+        }   
+    }
+    cout << nama[1]<<endl;
+
 }
 
 
@@ -966,6 +1065,7 @@ int main(){
         
     }
     */
-   
-
+    tampildataanggota();
+    
+    
 }
