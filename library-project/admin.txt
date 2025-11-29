@@ -41,3 +41,9 @@ id : 000007
 email : arch
 password : sudo
 
+kode akun : adinsisudo@gmail.com-sudoygy
+nama : adin supe admin
+id : 000008
+email : adinsisudo@gmail.com
+password : sudoygy
+

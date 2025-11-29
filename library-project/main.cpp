@@ -79,6 +79,7 @@ string fiksi(){
     while (true)
     {
         
+        cout << endl;
         cout << "fiksi"<<endl
             << "1.fiksi umum"<<endl
             << "2.fantasy"<<endl
@@ -100,7 +101,7 @@ string fiksi(){
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
         }
-
+        cout << endl;
     }    
 
     string statusstr = to_string(status);
@@ -114,6 +115,7 @@ string nonfiksi(){
     while (true)
     {
         
+        cout << endl;
         cout << "pilih"<<endl
             << "1.sejarah"<<endl
             << "2.sains"<<endl
@@ -134,7 +136,7 @@ string nonfiksi(){
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
         }
-        
+        cout << endl;
     }
     string statusstr = to_string(status);
     return "1" + statusstr;
@@ -145,6 +147,7 @@ string kodebuku(){
     string kode;
     while (true)
     {
+        cout << endl;
         cout << "status"<<endl
             << "0.fiksi"<<endl
             << "1.nonfiksi"<<endl;
@@ -168,7 +171,7 @@ string kodebuku(){
         }
 
     }
-
+    cout << endl;
     //id
     #pragma region id buku
     
@@ -251,6 +254,22 @@ void tambahbuku(){
         
         
     }
+    while (true)
+    {
+        cout << "stock : ";
+        cin >> stock;
+
+        if (cin && stock > 0)
+        {
+            break;
+        }
+        else{
+            cout << "gagal"<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        }
+    }
+    
     #pragma region isbn coy
     while (true)
     {
@@ -362,7 +381,7 @@ void tambahbuku(){
         }
         
     }
-
+    cout << endl;
     #pragma endregion
 
     #pragma endregion
@@ -385,6 +404,7 @@ void tambahbuku(){
             tulisfile << "pengarang : " << pengarang << endl;
             tulisfile << "penerbit : " << penerbit << endl;
             tulisfile << "tahun terbit : "<<tahunterbit<<endl;
+            tulisfile << "stock : "<< stock<<endl;
             tulisfile << endl;
 
 
@@ -425,6 +445,7 @@ void profileanggota(data_anggota anggota,string kodeakun,string email,string pas
     else{
         cout << "gagal membuka!"<<endl;
     }
+    cout << endl;
 }
 
 
@@ -461,7 +482,7 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
             continue;
         }
     }
-    
+    cout << endl;
 }
 
 
@@ -515,7 +536,7 @@ void tampildataanggota(){
         if (bacafile.is_open())
         {
             
-            cout << totalbaris<<endl;
+            // cout << totalbaris<<endl;
             string baris;
 
             while (getline(bacafile,baris))
@@ -626,6 +647,8 @@ void tampildataanggota(){
     // tampilan
     while (true)
     {    
+
+        cout << endl;
         cout << "1.id"<<endl
             << "2.kode"<<endl
             << "input : ";
@@ -681,8 +704,171 @@ void tampildataanggota(){
         }
         cout << endl<<"================="<<endl;
     }
+    cout << endl;
 }
 
+
+void tampildatabuku(){
+
+    int totalbaris = 0,index = 0;
+    
+    // mencari total baris
+    {
+        ifstream bacafile("buku.txt");
+        if (bacafile.is_open())
+        {
+            string baris1;
+            while (getline(bacafile,baris1))
+            {
+                size_t posisi = baris1.find("judul buku : ");
+                if (posisi != string::npos)
+                {
+                    totalbaris++;
+                }
+
+            }
+        }
+    }
+    string tmp,menu;
+    string judul[totalbaris],pengarang[totalbaris],penerbit[totalbaris],idstr[totalbaris],isbn[totalbaris];
+    int id[totalbaris],tahunterbit[totalbaris],stock[totalbaris];
+
+    // baca file
+    {
+        ifstream bacafile("buku.txt");
+        if (bacafile.is_open())
+        {
+            
+            string baris;
+            while (getline(bacafile,baris))
+            {
+                if ((baris.find("judul buku : ")) != string::npos)
+                {
+                    judul[index] = baris.substr(baris.find(":") + 1);
+                    while (judul[index][0] == ' ')
+                    {
+                        judul[index].erase(0,1);
+                    }
+                    
+                }
+
+                if ((baris.find("isbn : ")) != string::npos)
+                {
+                    isbn[index] = baris.substr(baris.find(":") + 1);
+                    while (isbn[index][0] == ' ')
+                    {
+                        isbn[index].erase(0,1);
+                    }
+                    
+                }
+
+                if ((baris.find("id : ")) != string::npos)
+                {
+                    tmp = baris.substr(baris.find(":") + 1);
+                    id[index] = atoi(tmp.c_str());
+                    idstr[index] = tmp;
+                    while (idstr[index][0] == ' ')
+                    {
+                        idstr[index].erase(0,1);
+                    }
+                    
+                }
+
+                if ((baris.find("pengarang : ")) != string::npos)
+                {
+                    pengarang[index] = baris.substr(baris.find(":") + 1);
+                    while (pengarang[index][0] == ' ')
+                    {
+                        pengarang[index].erase(0,1);
+                    }
+                    
+                }
+
+                if ((baris.find("penerbit : ")) != string::npos)
+                {
+                    penerbit[index] = baris.substr(baris.find(":") + 1);
+                    while (penerbit[index][0] == ' ')
+                    {
+                        penerbit[index].erase(0,1);
+                    }
+                    
+                }
+                
+                if ((baris.find("tahun terbit : ")) != string::npos)
+                {
+                    tmp = baris.substr(baris.find(":") + 1);
+                    tahunterbit[index] = atoi(tmp.c_str());
+                    
+                }
+                
+                if ((baris.find("stock : ")) != string::npos)
+                {
+                    tmp = baris.substr(baris.find(":") + 1);
+                    stock[index] = atoi(tmp.c_str());
+                    index++;
+                }
+                
+                
+                
+                
+                
+            }
+            
+        }
+        
+    }
+
+    // debug/tes 
+    /* 
+    for (int i = 0; i < index; i++)
+    {
+        cout << "Judul : "<< judul[i]<<endl;
+        cout << "isbn : "<< isbn[i]<<endl;
+        cout << "id : "<<id[i]<<endl;
+        cout << "string : "<< idstr[i]<<endl;
+        cout << "pengarang : "<<pengarang[i]<<endl;
+        cout << "penerbit : "<< penerbit[i]<<endl;
+        cout << "tahun terbit : "<< tahunterbit[i]<<endl;
+        cout << endl;
+
+    }
+    cout << judul[1]<<endl;*/
+
+    // sort
+    for (int i = 0; i < index - 1; i++)
+    {
+        for (int j = 0; j < index - i - 1; j++)
+        {
+           if (id[j] > id[j+1])
+           {
+                swap(id[j],id[j + 1]);
+                swap(idstr[j],idstr[j + 1]);
+                swap(judul[j],judul[j + 1]);
+                swap(isbn[j],isbn[j + 1]);
+                swap(pengarang[j],pengarang[j + 1]);
+                swap(penerbit[j],penerbit[j + 1]);
+                swap(tahunterbit[j],tahunterbit[j + 1]);
+                swap(stock[j],stock[j + 1]);
+           }
+            
+        }
+        
+
+    }
+    cout << endl;
+    cout << "jika digit id pertama"<<endl
+        << "1 = nonfiksi" <<endl
+        << "0 = fiksi"<<endl;
+    cout << "id \t| isbn \t\t | judul \t | pengarang \t | penerbit \t | tahun terbit | stok"<<endl;
+    for (int i = 0; i < index; i++)
+    {
+        
+        cout << idstr[i]<< " \t|" << isbn[i]<< "\t |"<< judul[i] << "\t |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t |"<< stock[i];
+        cout <<endl;
+    }
+    cout << endl;
+    
+}
 
 // sudah selesai
 
@@ -726,6 +912,7 @@ void tambahadmin(data_admin admin){
     }
     
     #pragma region input data admin
+    cout << endl;
     cin.ignore();
     cout << "nama : ";
     getline(cin,nama);
@@ -759,7 +946,7 @@ void tambahadmin(data_admin admin){
         tulisfile << endl;
         
     }
-
+    cout << endl;
     #pragma endregion
 
 }
@@ -775,7 +962,8 @@ void daftar(data_anggota anggota){
     int id = 1;
 
     //input data
-    cout << "daftar akun!" <<endl;
+    cout << endl;
+    cout << "menambah anggota!" <<endl;
     cout << "nama : ";
     cin.ignore();
     getline(cin,anggota.nama);
@@ -960,6 +1148,7 @@ void daftar(data_anggota anggota){
         file << "password : "<< anggota.password<<endl;
         file << "status akun : "<<anggota.status<<endl;
     } 
+    cout << endl;
 }
 
 
@@ -970,7 +1159,7 @@ void dasboradmin(){
     data_admin admin;
     while (true)
     {
-    
+        cout << endl;
         cout << "1.tampil data anggota"<<endl
             << "2.tampil buku"<<endl
             << "3.tambah admin"<<endl
@@ -990,6 +1179,7 @@ void dasboradmin(){
         else if (menu == "2")
         {
             cout << "tampil buku "<< endl;
+            tampildatabuku();
         }
         else if (menu == "3")
         {
@@ -1026,7 +1216,7 @@ void dasboradmin(){
         }
         // tambahbuku();
         // tampildataanggota();
-        
+        cout << endl;
     }
 }
 
@@ -1042,7 +1232,7 @@ void login(data_anggota anggota,data_admin admin){
     string baris1,baris2;
     int jumlah = 0;
 
-    cout << "login" <<endl;
+    cout <<endl<< "login" <<endl;
     cout << "email : ";
     cin.ignore();// menghilangkan buffer
     getline(cin,emaillog);
@@ -1091,7 +1281,7 @@ void login(data_anggota anggota,data_admin admin){
             {
                 ditemukan = true;
                 kodeakun2 = baris2.substr(posisi2);
-                cout << posisi2 <<endl;
+                // cout << posisi2 <<endl;
                 email2 = kodeakun2.substr(0,kodeakun2.find('-'));
                 pass2 = kodeakun2.substr(kodeakun2.find("-") + 1,kodeakun2.find('\n'));
                 // debug
@@ -1151,7 +1341,5 @@ int main(){
         }
         
     }
-    
-    
     
 }

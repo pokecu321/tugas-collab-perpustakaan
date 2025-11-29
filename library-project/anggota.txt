@@ -58,3 +58,13 @@ alamat : pucanglaban
 email : adin@gmail.com
 password : sudo
 status akun : 1
+
+kode akun : pancong1@gmail.com-enak1
+nama : kuadrat
+id : 000007
+kode : 20091123002
+ttl : tulungagung, 23, 11, 2009
+alamat : selorejo
+email : pancong1@gmail.com
+password : enak1
+status akun : 1
