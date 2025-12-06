@@ -2,6 +2,8 @@
 #include <fstream>// file handling
 #include <string>// manipulasi string
 #include <limits>// membuang buffer
+#include<cstdlib>// untuk membuat fungsi clear!(gara gara dulu pernah dikasih tahu pak badrus)
+
 using namespace std;
 
 struct TTL
@@ -70,6 +72,10 @@ struct peminjaman
     string denda;
 };
 
+// menajalankan command line "clear" / "cls" untuk membersihkan terminal
+void clearCMD_ln(){
+    system("cls");
+}
 
 string fiksi(){
     int status;
@@ -603,7 +609,7 @@ void tampildataanggota(){
         cout << "1.id"<<endl
             << "2.kode"<<endl
             << "3.nama"<<endl
-            << "0.kembali!"<<endl
+            << "4.kembali!"<<endl
             << "input : ";
         cin >> menu;
 
@@ -660,10 +666,40 @@ void tampildataanggota(){
                 case 3:
                 {
                     cout << "nama"<<endl;// otw
+                    // sort 
+                    for (int i = 0; i < totalbaris - 1; i++)
+                    {
+                        for (int j = 0; j < totalbaris - i - 1; j++)
+                        {
+                            if (nama[j] > nama[j + 1])
+                            {
+                                swap(kode[j],kode[j + 1]);
+                                swap(nama[j],nama[j + 1]);
+                                swap(id[j],id[j + 1]);
+                                swap(idstr[j],idstr[j + 1]);
+                                swap(ttl[j],ttl[j + 1]);
+                                swap(statusakun[j],statusakun[j + 1]);
+                                swap(email[j],email[j + 1]);
+                                swap(password[j],password[j + 1]);
+                                swap(kodeakun[j],kodeakun[j + 1]);
+
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    //output
+                    cout << "nama "<<endl;
+                    for (int i = 0; i < totalbaris; i++)
+                    {
+                        cout << nama[i] << endl;
+                    }
+                    
                     break;
                 }
 
-                case 0:
+                case 4:
                 {
                     out = true;
                     break;
@@ -777,6 +813,10 @@ void tampiladmin(){
             if (nama[j] > nama[j + 1])
             {
                 swap(nama[j],nama[j+1]);
+                swap(idstr[j],idstr[j + 1]);
+                swap(email[j],email[j + 1]);
+                swap(pass[j],pass[j + 1]);
+                swap(kodeakun[j],kodeakun[j + 1]);
             }
             
         }
@@ -815,7 +855,7 @@ void tampildatabuku(){
             }
         }
     }
-    string tmp,menu;
+    string tmp;
     string judul[totalbaris],pengarang[totalbaris],penerbit[totalbaris],idstr[totalbaris],isbn[totalbaris];
     int id[totalbaris],tahunterbit[totalbaris],stock[totalbaris];
 
@@ -904,14 +944,13 @@ void tampildatabuku(){
         
     }
 
-    
     // sort
     for (int i = 0; i < index - 1; i++)
     {
         for (int j = 0; j < index - i - 1; j++)
         {
-           if (id[j] > id[j+1])
-           {
+            if (id[j] > id[j+1])
+            {
                 swap(id[j],id[j + 1]);
                 swap(idstr[j],idstr[j + 1]);
                 swap(judul[j],judul[j + 1]);
@@ -920,24 +959,111 @@ void tampildatabuku(){
                 swap(penerbit[j],penerbit[j + 1]);
                 swap(tahunterbit[j],tahunterbit[j + 1]);
                 swap(stock[j],stock[j + 1]);
-           }
+
+            }
             
         }
         
 
     }
-    cout << endl;
-    cout << "jika digit id pertama"<<endl
-        << "1 = nonfiksi" <<endl
-        << "0 = fiksi"<<endl;
-    cout << "id \t| isbn \t\t | judul \t | pengarang \t | penerbit \t | tahun terbit | stok"<<endl;
-    for (int i = 0; i < index; i++)
+
+    int menu;
+    bool out = false;
+    while (true)
     {
         
-        cout << idstr[i]<< " \t|" << isbn[i]<< "\t |"<< judul[i] << "\t |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t |"<< stock[i];
-        cout <<endl;
+        cout << endl;
+        cout << "jika digit id pertama"<<endl
+            << "1 = nonfiksi" <<endl
+            << "0 = fiksi"<<endl;
+        cout << "pilih metode tampil data!" <<endl
+            << "1.id"<<endl
+            << "2.nama"<<endl
+            << "3.kembali"<<endl
+            << "input : ";
+        cin >> menu;
+        if (cin && menu)
+        {
+            switch (menu)
+            {
+                case 1:
+                {
+
+                    cout << "id \t| isbn \t\t | judul \t | pengarang \t | penerbit \t | tahun terbit | stok"<<endl;
+                    for (int i = 0; i < index; i++)
+                    {
+
+                        cout << idstr[i]<< " \t|" << isbn[i]<< "\t |"<< judul[i] << "\t |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t |"<< stock[i];
+                        cout <<endl;
+                    }
+                    cout << endl;
+                
+                    break;
+                }
+                case 2:
+                {
+                    cout << index << endl;
+                    // sort
+                    for (int i = 0; i < index - 1; i++)
+                    {
+                        cout << i << endl;
+                        for (int j = 0; j < index - i - 1; j++)
+                        {
+                            cout << "j : " <<j<<endl;
+                            if (judul[j] > judul[j + 1])
+                            {
+                                swap(id[j],id[j + 1]);
+                                swap(idstr[j],idstr[j + 1]);
+                                swap(judul[j],judul[j + 1]);
+                                swap(isbn[j],isbn[j + 1]);
+                                swap(pengarang[j],pengarang[j + 1]);
+                                swap(penerbit[j],penerbit[j + 1]);
+                                swap(tahunterbit[j],tahunterbit[j + 1]);
+                                swap(stock[j],stock[j + 1]);
+                            }
+
+                        }
+                       cout << i<<endl; 
+                    }
+                    cout << "berdasarkan judul"<<endl;
+                    cout << "judul buku \t| isbn \t\t | id \t | pengarang \t | penerbit \t | tahun terbit | stok"<<endl;
+                    for (int i = 0; i < index; i++)
+                    {
+                        cout << judul[i]<< " \t|" << isbn[i]<< "\t |"<< id[i] << " |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t |"<< stock[i];
+                        cout << endl;
+                    }
+                    break;
+
+                }
+                case 3:
+                {
+                    out = true;
+                    cout << "kembali ke menu sebelum nya!"<<endl;
+                    break;
+                }
+                default:
+                    cout << "menu tidak ditemukan!"<<endl;
+                    break;
+    
+            }
+            if (out)
+            {
+                cout << endl;
+                break;
+            }
+            
+
+        }
+        else{
+            cout << "hanya angka"<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        }
+
     }
-    cout << endl;
+    
+
+
     
 }
 
@@ -1133,6 +1259,8 @@ void caribuku(){
                     << "    7.roman"<<endl
                     << "    8.fiksi sejarah"<<endl
                     << "    9.young adult"<<endl
+                    << "contoh format id : genre,subgenre,urutan = 14xxxx"<<endl
+                    << "                   1 = genre(nonfiksi),6 = subgenre(teknologi)"<<endl
                     << "input (jangan ada spasi): ";
 
                     cin >> genre;
@@ -1352,7 +1480,7 @@ void daftar(data_anggota anggota){
             break;//memberi tanda ke looping bahwa looping berhenti
         }
         else{//jika tidak sama maka looping masih berlanjut
-            cout << "password tidak sama!(tekan enter atau apa saja untuk lanjut XD"<<endl;
+            cout << "password tidak sama!(tekan enter atau apa saja untuk lanjut XD) ";
             cin.clear();// menghapus sisa input yang salah
             cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
         }
@@ -1467,14 +1595,14 @@ void daftar(data_anggota anggota){
 
 
 
-// belum selesai(tinggal pencarian)
+// hampir selesai 
 void dasboranggota(data_anggota anggota,string kodeakun,string email,string password){
     string menu;// variabel menu
     while (true)
     {
         cout <<endl;
         cout << "dasbor anggota"<<endl;
-        cout << "1.cari"<<endl
+        cout << "1.pencarian buku"<<endl
             << "2.profile"<<endl
             << "0.keluar"<<endl
             << "input: ";
@@ -1493,6 +1621,11 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
         else if (menu == "0")
         {
             cout << "user memilih keluar!"<<endl;
+            cout << "tekan tombol apa saja untuk lanjut sekaligus bersihkan terminal!";
+            cin.get(); cin.get();
+
+            clearCMD_ln();
+
             break;
         }
         else{ // jika input tidak sesuai dengan yang ditampilkan maka looping
@@ -1567,6 +1700,11 @@ void dasboradmin(){
         else if (menu == "0")
         {
             cout << "super user memilih keluar!"<<endl;
+            cout << "tekan tombol apa saja untuk lanjut sekaligus bersihkan terminal!";
+
+            cin.get();cin.get();
+
+            clearCMD_ln();
             break;
         }
         else{
@@ -1667,9 +1805,12 @@ int main(){
     
     while (true)
     {
+        
+        cout << endl
+            << "halaman login!"<<endl;
         cout << endl 
             <<"1.login!"<<endl
-            << "0.keluar"<<endl
+            << "2.keluar"<<endl
             << "input : ";
         cin >> menu;
         if (cin && menu)
@@ -1680,12 +1821,14 @@ int main(){
                 login(anggota,admin);
                 break;
             
-            case 0:
+            case 2:
                 cout << "user memilih keluar!"<<endl;
                 out = true;
                 break;
             
             default:
+
+                clearCMD_ln();
                 cout << endl 
                     << "menu tidak ditemukan!"<<endl;
                 continue;
@@ -1695,6 +1838,7 @@ int main(){
             }
         }
         else{
+            clearCMD_ln();
             cout << "hanya angka!"<<endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');

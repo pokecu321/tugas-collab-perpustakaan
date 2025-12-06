@@ -30,3 +30,11 @@ penerbit : esemkita
 tahun terbit : 2015
 stock : 38
 
+judul buku : bahasa jawa
+isbn : 9786081233455
+id : 140005
+pengarang : piwaaaa
+penerbit : pt.pancong
+tahun terbit : 2021
+stock : 31
+

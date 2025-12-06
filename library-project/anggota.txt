@@ -68,3 +68,13 @@ alamat : selorejo
 email : pancong1@gmail.com
 password : enak1
 status akun : 1
+
+kode akun : eka153@gmail.com-kilometer ajah
+nama : pandra 153
+id : 000008
+kode : 20091123003
+ttl : tulungagung, 23, 11, 2009
+alamat : selorejo
+email : eka153@gmail.com
+password : kilometer ajah
+status akun : 1

@@ -1,6 +1,11 @@
 #include<iostream>
 #include<fstream>
+#include<cstdlib>
 using namespace std;
+
+void clearcmd(){
+    system("cls");
+}
 
 void checkdigit(int arrayakhir[],int arr[]){
     int hasilawal = 0;
@@ -158,6 +163,17 @@ void tambahbuku(){
 }
 
 int main(){
+    string menu;
     tambahbuku();
+    cout << "clear?(y/n) : ";
+    cin >> menu;
+    if (menu == "y" || menu == "Y")
+    {
+        clearcmd();
+        cout << "ok done!"<<endl;
+    }
+    else{
+        cout <<"ok bye!"<<endl;
+    }
     
 }

@@ -52,3 +52,9 @@ id : 000008
 email : adinsisudo@gmail.com
 password : sudoygy
 
+kode akun : pancong@gmail.com-pancong143
+nama : 153 km coy
+id : 000010
+email : pancong@gmail.com
+password : pancong143
+
