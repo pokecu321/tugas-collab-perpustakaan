@@ -1,16 +1,21 @@
-kode : admin@gmail.com-admin#1234
+kode akun : admin@gmail.com-admin#1234
+nama : adminpertama
+id : 00001
+email : admin@gmail.com
+password : admin#1234
 
 kode akun : sudo-arch
 nama : admin adin
 id : 000001
-email : sudo
+email : sudo@atemin.com
 password : arch
 
 kode akun : superadmin-admin
-nama : adin
-id : 000004
+nama : m.saifuddin
+id : 000002
 email : superadmin
 password : admin
+
 kode akun : sigma-admin
 nama : admin sigma
 id : 000003
@@ -18,31 +23,31 @@ email : sigma
 password : admin
 
 kode akun : admin@admin-atemin
-nama : adin si admin
+nama : si admin
 id : 000004
 email : admin@admin
 password : atemin
 
 kode akun : a-a
-nama : a
+nama : abcdefghij
 id : 000005
 email : a
 password : a
 
 kode akun : haiakuadmmin-admin sigma
-nama : adin sigmma banget coy
+nama : adin coy
 id : 000006
 email : haiakuadmmin
 password : admin sigma
 
 kode akun : arch-sudo
-nama : sudo
+nama : superuserdo
 id : 000007
 email : arch
 password : sudo
 
 kode akun : adinsisudo@gmail.com-sudoygy
-nama : adin supe admin
+nama : adin admin
 id : 000008
 email : adinsisudo@gmail.com
 password : sudoygy
