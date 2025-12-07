@@ -9,18 +9,18 @@ email : alo
 password : alo
 status akun : 1
 
-kode akun : member-member
-nama : lagi lagi adin
+kode akun : member@gmail.com-member
+nama : lagilagi adin
 id : 000002
 kode : 20091210002
 ttl : tulungagung, 10, 12, 2009
 alamat : desa pucanglaban
-email : member
+email : member@gmail.com
 password : member
 status akun : 1
 
 kode akun : dindon@gmail.com-cpp
-nama : adin si dindon cpp
+nama : adin cpp
 id : 000003
 kode : 20091210003
 ttl : tulungagung, 10, 12, 2009
@@ -29,18 +29,18 @@ email : dindon@gmail.com
 password : cpp
 status akun : 1
 
-kode akun : ultah-buyut sekarang 16
+kode akun : ultah@gmail.com-buyut sekarang 16
 nama : kuadrat 
 id : 000004
 kode : 20091123001
 ttl : the gunung, 23, 11, 2009
 alamat : bumi
-email : ultah
+email : ultah@gmail.com
 password : buyut sekarang 16
 status akun : 1
 
 kode akun : adinsigma@gmail.com-hallo
-nama : muhammad saifuddin
+nama : saifuddin
 id : 000005
 kode : 20091210004
 ttl : tulungagung, 10, 12, 2009
@@ -60,7 +60,7 @@ password : sudo
 status akun : 1
 
 kode akun : pancong1@gmail.com-enak1
-nama : kuadrat
+nama : kuadratt
 id : 000007
 kode : 20091123002
 ttl : tulungagung, 23, 11, 2009

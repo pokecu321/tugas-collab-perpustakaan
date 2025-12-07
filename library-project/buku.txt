@@ -5,6 +5,7 @@ pengarang : m.jackson
 penerbit : m.jackson
 tahun terbit : 2006
 stock : 36
+status : 1
 
 judul buku : c++,lang
 isbn : 9786087564121
@@ -13,6 +14,7 @@ pengarang : m.saifuddin
 penerbit : esemkita
 tahun terbit : 2024
 stock : 31
+status : 1
 
 judul buku : matematika
 isbn : 9786081235121
@@ -21,6 +23,7 @@ pengarang : equiiik
 penerbit : esemkita
 tahun terbit : 2025
 stock : 46
+status : 1
 
 judul buku : b.indonesia
 isbn : 9786081543121
@@ -29,6 +32,7 @@ pengarang : pt.pancong
 penerbit : esemkita
 tahun terbit : 2015
 stock : 38
+status : 1
 
 judul buku : bahasa jawa
 isbn : 9786081233455
@@ -37,4 +41,5 @@ pengarang : piwaaaa
 penerbit : pt.pancong
 tahun terbit : 2021
 stock : 31
+status : 0
 
