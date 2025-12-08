@@ -3,6 +3,7 @@
 #include <string>// manipulasi string
 #include <limits>// membuang buffer
 #include<cstdlib>// untuk membuat fungsi clear!(gara gara dulu pernah dikasih tahu pak badrus)
+#include<ctime>
 
 using namespace std;
 
@@ -63,7 +64,7 @@ struct buku
 };
 struct peminjaman
 {
-    string id_pemminjaman;
+    string id_peminjaman;
     string id_anggota;
     string id_buku;
     string tanggal_pinjam;
@@ -72,10 +73,30 @@ struct peminjaman
     string denda;
 };
 
+struct waktutanggal{
+    int tgl;
+    int bulan;
+    int tahun;
+};
+
 // menajalankan command line "clear" / "cls" untuk membersihkan terminal
 void clearCMD_ln(){
     system("cls");
 }
+
+// waktu
+waktutanggal waktunyata(){
+    time_t now = time(0);// time_t = tipe data detik, now = variabel, time(0) = fungsi untuk ambil waktu sekarang dalam detik
+
+    tm t = *localtime(&now);// 
+
+    waktutanggal waktu;
+    waktu.tgl = t.tm_mday;
+    waktu.bulan = t.tm_mon + 1;// karena berisi 0 - 11
+    waktu.tahun = t.tm_year + 1900; // karena pertama kali tahun terbaca oleh system adalah tahun 1900
+    return waktu;
+}
+
 
 string fiksi(){
     int status;
@@ -1045,11 +1066,11 @@ void tampildatabuku(){
                 case 1:
                 {
 
-                    cout << "id \t| isbn \t\t | judul \t | pengarang \t | penerbit \t | tahun terbit | stok"<<endl;
+                    cout << "id \t| isbn \t\t | judul \t | pengarang \t | penerbit \t | tahun terbit | stok  | status"<<endl;
                     for (int i = 0; i < index; i++)
                     {
 
-                        cout << idstr[i]<< " \t|" << isbn[i]<< "\t |"<< judul[i] << "\t |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t |"<< stock[i];
+                        cout << idstr[i]<< " \t|" << isbn[i]<< "\t |"<< judul[i] << "\t |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t|"<< stock[i]<< " \t|"<<status[i];
                         cout <<endl;
                     }
                     cout << endl;
@@ -1083,10 +1104,10 @@ void tampildatabuku(){
                         
                     }
                     cout << "berdasarkan judul"<<endl;
-                    cout << "judul buku \t| isbn \t\t | id \t | pengarang \t | penerbit \t | tahun terbit | stok"<<endl;
+                    cout << "judul buku \t| isbn \t\t | id \t | pengarang \t | penerbit \t | tahun terbit | stok   | status"<<endl;
                     for (int i = 0; i < index; i++)
                     {
-                        cout << judul[i]<< " \t|" << isbn[i]<< "\t |"<< id[i] << " |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t |"<< stock[i];
+                        cout << judul[i]<< " \t|" << isbn[i]<< "\t |"<< id[i] << " |"<< pengarang[i]<< "\t |"<<penerbit[i]<< "\t |"<< tahunterbit[i]<< "\t\t|"<< stock[i]<< "\t | "<< status[i];
                         cout << endl;
                     }
                     break;
@@ -1261,7 +1282,6 @@ void caribuku(){
             << "pencarian!"<<endl
             << "1.cari!"<<endl
             << "2.filter berdasarkan genre!"<<endl
-            << "3.tampil semua buku!"<<endl
             << "0.kembali!"<<endl
             << "input : ";
         cin >> menu;
@@ -1292,15 +1312,18 @@ void caribuku(){
                         ((penerbit[i].find(cari)) != string::npos) || 
                         ((tahunterbitstr[i].find(cari)) != string::npos))
                     {
+                        if (status[i] == "1")
+                        {
                         
-                        cout << "judul buku : "<<judul[i]<<endl;
-                        cout << "isbn : "<<isbn[i]<<endl;
-                        cout << "id : "<< idstr[i]<<endl;
-                        cout << "pengarang : "<< pengarang[i]<< endl;
-                        cout << "penerbit : "<< penerbit[i] << endl;
-                        cout << "tahun terbit : "<< tahunterbit[i]<< endl;
-                        cout << "stock : "<< stock[i]<< endl;
-                        cout << endl;
+                            cout << "judul buku : "<<judul[i]<<endl;
+                            cout << "isbn : "<<isbn[i]<<endl;
+                            cout << "id : "<< idstr[i]<<endl;
+                            cout << "pengarang : "<< pengarang[i]<< endl;
+                            cout << "penerbit : "<< penerbit[i] << endl;
+                            cout << "tahun terbit : "<< tahunterbit[i]<< endl;
+                            cout << "stock : "<< stock[i]<< endl;
+                            cout << endl;
+                        }
                     }
                     
                 }
@@ -1332,7 +1355,7 @@ void caribuku(){
                     << "    7.roman"<<endl
                     << "    8.fiksi sejarah"<<endl
                     << "    9.young adult"<<endl
-                    << "contoh format id : genre,subgenre,urutan = 14xxxx"<<endl
+                    << "contoh format id : genre,subgenre,urutan = 16xxxx"<<endl
                     << "                   1 = genre(nonfiksi),6 = subgenre(teknologi)"<<endl
                     << "input (jangan ada spasi): ";
 
@@ -1341,15 +1364,19 @@ void caribuku(){
                     {
                         if ((idstr[i].find(genre)) != string::npos)
                         {
-                            cout << endl;
-                            cout << "judul buku : "<<judul[i]<<endl;
-                            cout << "isbn : "<<isbn[i]<<endl;
-                            cout << "id : "<< idstr[i]<<endl;
-                            cout << "pengarang : "<< pengarang[i]<< endl;
-                            cout << "penerbit : "<< penerbit[i] << endl;
-                            cout << "tahun terbit : "<< tahunterbit[i]<< endl;
-                            cout << "stock : "<< stock[i]<< endl;
-                            cout << endl;
+                            if (status[i] == "1")
+                            {
+                                
+                                cout << endl;
+                                cout << "judul buku : "<<judul[i]<<endl;
+                                cout << "isbn : "<<isbn[i]<<endl;
+                                cout << "id : "<< idstr[i]<<endl;
+                                cout << "pengarang : "<< pengarang[i]<< endl;
+                                cout << "penerbit : "<< penerbit[i] << endl;
+                                cout << "tahun terbit : "<< tahunterbit[i]<< endl;
+                                cout << "stock : "<< stock[i]<< endl;
+                                cout << endl;
+                            }
                         }
                         
                     }
@@ -1358,12 +1385,7 @@ void caribuku(){
 
                 break;
             }
-            case '3':
-            {
-                cout << endl << "tampil semua buku!"<<endl;
-                tampildatabuku();
-                break;
-            }
+            
             case '0':
                 cout << endl << "user memilih kembali!"<<endl;
                 out = true;
@@ -1512,7 +1534,8 @@ void hapusbuku(){
     int menu;
     while (true)
     {
-        cout << "1.list buku"<<endl
+        cout << endl 
+            << "1.list buku"<<endl
             << "2.edit status buku"<<endl
             << "0.kembali"<<endl
             << "input : ";
@@ -1606,7 +1629,7 @@ void hapusbuku(){
 
                     break;
                 }
-                case 3:
+                case 0:
                 {
                     out = true;
                     break;
@@ -1626,17 +1649,12 @@ void hapusbuku(){
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
         }
-
+        if (out)
+        {
+            break;
+        }
+        
     }
-
-
-
-
-
-
-
-
-
 
 }
 // sudah selesai
@@ -1920,6 +1938,158 @@ void daftar(data_anggota anggota){
     cout << endl;
 }
 
+bool cekbuku(string inputbuku){
+    ifstream bacafile("buku.txt");
+    string baris,kode;
+    bool cek = false;
+    int stock;
+    string tmp;
+    while (getline(bacafile,baris))
+    {
+        if ((baris.find("id : ")) != string::npos)
+        {
+            kode = baris.substr(baris.find(":") + 1);
+            while (kode[0] == ' ')
+            {
+                kode.erase(0,1);
+            }
+            // reset stock setiap bertemmu id baru
+            stock = -1;
+            
+        }
+        if (baris.find("stock : ") != string::npos)
+        {
+            tmp = baris.substr(baris.find(":") + 1);
+            stock = atoi(tmp.c_str());
+        }
+        if (kode == inputbuku && stock > 0)
+        {
+            cek = true;
+        }
+        if (cek)
+        {
+            break;
+        }
+        
+    }
+    return cek;
+}
+
+bool cekkodeanggota(string kode){
+    ifstream bacafile("anggota.txt");
+    string baris,kodeanngota;
+    bool cek = false;
+    while (getline(bacafile,baris))
+    {
+        if ((baris.find("kode : ")) != string::npos)
+        {
+            kodeanngota = baris.substr(baris.find(":") + 1);
+            while (kodeanngota[0] == ' ')
+            {
+                kodeanngota.erase(0,1);
+            }
+            if (kode == kodeanngota)
+            {
+                cek = true;
+            }
+            
+        }
+        if (cek)
+        {
+            break;
+        }
+        
+    }
+    return cek;
+}
+
+void tambahpeminjaman(){
+    ifstream bacafile("peminjaman.txt");
+    int id = 1;
+    peminjaman data;
+    string kode,kodebuku,baris;
+    waktutanggal waktu = waktunyata();
+
+    while (getline(bacafile,baris))
+    {
+        if ((baris.find("id peminjaman : ")) != string::npos)
+        {
+            id++;
+        }
+        
+    }
+    
+    
+    data.id_peminjaman = to_string(id);
+    
+    cout << "peminjaman!"<<endl<<endl;
+    tampildataanggota();
+    cout << endl << "mohon input kode berdasar kan tabel di atas!"<<endl<<endl;
+    while (true)
+    {
+        cout <<"input kode anggota : ";
+        cin >> kode;
+        if (cekkodeanggota(kode))
+        {
+            cout << "input kode anggota berhasil!"<<endl;
+            break;
+        }
+        else{
+            cout << "data tidak ditemukan!"<<endl<<endl;
+            
+        }
+
+    }
+    
+    while (true)
+    {
+        cout << "input kode buku : ";
+        cin >> kodebuku;
+        if (cekbuku(kodebuku))
+        {
+            cout << "input kode buku berhasil!"<<endl<<endl;
+            break;
+        }
+        else{
+            cout << "gagal!,mungkin karena stock 0 atau, anda salah input id!"<<endl<<endl;
+        }
+    }
+    // deadline
+    time_t now = time(0);
+    tm ltm = *localtime(&now);
+
+    // tambah 7 hari
+    ltm.tm_mday += 7;
+
+    // mktime akan menormalkan tanggal, misal jika melewati akhir bulan
+    time_t t_deadline = mktime(&ltm);// contoh nyata 28 desember + 7 hari maka akan otomatis 4 januari  
+
+    // pindah ke var deadline 
+    waktutanggal deadline;
+    tm *d = localtime(&t_deadline);
+    deadline.tgl = d->tm_mday;// -> adalah pointer to struct (*d).tm_mday
+    deadline.bulan = d->tm_mon + 1;
+    deadline.tahun = d->tm_year + 1900;
+
+    cout << "id peminjaman : "<< id<<endl;
+    cout << "kode anggota : "<< kode<<endl;
+    cout << "id buku : "<< kodebuku <<endl;
+    cout << "tanggal pinjam : " << waktu.tgl << "-"<< waktu.bulan << "-"<<waktu.tahun<<endl;
+    cout << "deadline : " << deadline.tgl << "-"<< deadline.bulan << "-"<< deadline.tahun << endl;
+    cout << "status : "<< 1<<endl;
+    cout << "denda : "<< 0<<endl;
+
+    ofstream tulisfile("peminjaman.txt",ios::app);
+    tulisfile << "id peminjaman : "<< id<<endl;
+    tulisfile << "kode anggota : "<< kode<<endl;
+    tulisfile << "id buku : "<< kodebuku <<endl;
+    tulisfile << "tanggal pinjam : " << waktu.tgl << "-"<< waktu.bulan << "-"<<waktu.tahun<<endl;
+    tulisfile << "deadline : " << deadline.tgl << "-"<< deadline.bulan << "-"<< deadline.tahun << endl;
+    tulisfile << "status : "<< 1<<endl;
+    tulisfile << "denda : "<< 0<<endl;
+    tulisfile << endl;
+
+}
 
 // hampir selesai 
 void dasboranggota(data_anggota anggota,string kodeakun,string email,string password){
@@ -1965,20 +2135,25 @@ void dasboranggota(data_anggota anggota,string kodeakun,string email,string pass
 
 //belum selesai
 void dasboradmin(){
+    waktutanggal waktu = waktunyata();
     string menu;
     data_anggota anggota;
     data_admin admin;
     while (true)
     {
-        cout << endl;
+        cout << endl
+            << "dasbor admin"<<endl
+            << endl
+            << "waktu hari ini : "<< waktu.tgl << "-"<< waktu.bulan << "-"<< waktu.tahun<<endl;
         cout << "1.tampil data anggota"<<endl
-            << "2.cari buku"<<endl
+            << "2.cari / tampil buku"<<endl
             << "3.tambah admin"<<endl
             << "4.tambah anggota"<<endl
             << "5.tambah buku"<<endl
             << "6.peminjaman"<<endl
             << "7.pengembalian"<< endl
             << "8.tampil semua anggota admin"<<endl
+            << "9.edit status buku"<<endl
             << "0.keluar"<< endl
             << "input : ";
         cin >> menu;
@@ -1986,12 +2161,36 @@ void dasboradmin(){
         if (menu == "1")
         {
             cout << "tampil data anggota"<<endl;
-            tampildataanggota();// kurang nama
+            tampildataanggota();
         }
         else if (menu == "2")
         {
-            cout << "tampil buku "<< endl;
-            caribuku();// kurang nama
+            while (true)
+            {
+            
+                cout << endl 
+                    << "1.cari buku"<<endl
+                    << "2.tampil data buku"<<endl
+                    << "0.kembali"<<endl
+                    << "input : ";
+                cin >> menu;
+                if (menu == "1")
+                {
+                    caribuku();
+                }
+                else if (menu == "2")
+                {
+                    tampildatabuku();
+                }
+                else if (menu == "0")
+                {
+                    break;
+                }
+                else{
+                    cout << "input invalid"<<endl;
+                }
+            }
+            
         }
         else if (menu == "3")
         {
@@ -2021,7 +2220,10 @@ void dasboradmin(){
             cout << "tampil admin"<<endl;
             tampiladmin();
         }
-        
+        else if (menu == "9")
+        {
+            hapusbuku();
+        }
         else if (menu == "0")
         {
             cout << "super user memilih keluar!"<<endl;
@@ -2061,6 +2263,7 @@ void login(data_anggota anggota,data_admin admin){
     cout << "password : ";
     getline(cin,passwordlog);
     kodeakunlog = emaillog + "-" + passwordlog;// pembuatan kode akun khusus login 
+
 
     if (bacafileanggota.is_open())
     {
@@ -2102,14 +2305,16 @@ void login(data_anggota anggota,data_admin admin){
     // pengecekan apakah input login ada di data anggota atau admin atau malah akun tidak ada
     if (kodeakun1 == kodeakunlog) // jika anggota
     {
+        clearCMD_ln();
         dasboranggota(anggota,kodeakun1,email1,pass1);
     }
     else if (kodeakun2 == kodeakunlog) // jika admin
     {
+        clearCMD_ln();
         dasboradmin();
     }
     else{ // jika tidak ditemukan 
-    clearCMD_ln();
+        clearCMD_ln();
         cout << "akun tidak ditemukan!"<<endl<<endl;
     }
     
@@ -2124,46 +2329,48 @@ int main(){
     data_anggota anggota;
     data_admin admin;
     
-    // while (true)
-    // {
+    while (true)
+    {
         
-    //     cout << endl
-    //         << "halaman login!"<<endl;
-    //     cout << endl 
-    //         <<"1.login!"<<endl
-    //         << "2.keluar"<<endl
-    //         << "input : ";
-    //     cin >> menu;
-    //     if (cin)
-    //     {
-    //         switch (menu)
-    //         {
-    //         case 1:
-    //             login(anggota,admin);
-    //             break;
+        cout << endl
+            << "halaman login!"<<endl;
+        cout << endl 
+            <<"1.login!"<<endl
+            << "0.keluar"<<endl
+            << "input : ";
+        cin >> menu;
+        if (cin)
+        {
+            switch (menu)
+            {
+            case 1:
+                clearCMD_ln();
+                login(anggota,admin);
+                break;
             
-    //         case 0:
-    //             cout << "user memilih keluar!"<<endl;
-    //             out = true;
-    //             break;
+            case 0:
+                
+                cout << "user memilih keluar!"<<endl;
+                out = true;
+                break;
             
-    //         default:
+            default:
 
-    //             clearCMD_ln();
-    //             cout << endl 
-    //                 << "menu tidak ditemukan!"<<endl;
-    //             continue;
-    //         }
-    //         if (out){
-    //             break;
-    //         }
-    //     }
-    //     else{
-    //         clearCMD_ln();
-    //         cout << "hanya angka!"<<endl;
-    //         cin.clear();// menghapus sisa input yang salah
-    //         cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
-    //     }
-    // }
-    hapusbuku();
+                clearCMD_ln();
+                cout << endl 
+                    << "menu tidak ditemukan!"<<endl;
+                continue;
+            }
+            if (out){
+                break;
+            }
+        }
+        else{
+            clearCMD_ln();
+            cout << "hanya angka!"<<endl;
+            cin.clear();// menghapus sisa input yang salah
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
+        }
+    }
+    tambahpeminjaman();
 }
