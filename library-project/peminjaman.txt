@@ -3,6 +3,7 @@ kode anggota : 20091123003
 id buku : 160001
 tanggal pinjam : 8-12-2025
 deadline : 15-12-2025
+tanggal kembali : -
 status : 1
 denda : 0
 

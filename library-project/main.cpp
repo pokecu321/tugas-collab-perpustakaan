@@ -2,8 +2,8 @@
 #include <fstream>// file handling
 #include <string>// manipulasi string
 #include <limits>// membuang buffer
-#include<cstdlib>// untuk membuat fungsi clear!(gara gara dulu pernah dikasih tahu pak badrus)
-#include<ctime>
+#include <cstdlib>// untuk membuat fungsi clear!(gara gara dulu pernah dikasih tahu pak badrus)
+#include <ctime>// untuk waktu!!!!
 
 using namespace std;
 
@@ -54,13 +54,13 @@ struct ISBN // Prefix – Kode Negara – Kode Penerbit – Nomor Buku – Check
 
 struct buku
 {
-    // string id_buku;
-    // ISBN isbn;
-    // string judul;
-    // string pengarang;
-    // string penerbit;
-    // string tahun_terbit;
-    // int stock;
+    string id_buku;
+    ISBN isbn;
+    string judul;
+    string pengarang;
+    string penerbit;
+    string tahun_terbit;
+    int stock;
 };
 struct peminjaman
 {
@@ -68,6 +68,7 @@ struct peminjaman
     string id_anggota;
     string id_buku;
     string tanggal_pinjam;
+    string batas; 
     string tanggal_kembali;
     string status;
     string denda;
@@ -97,6 +98,43 @@ waktutanggal waktunyata(){
     return waktu;
 }
 
+int hitungdatapeminjaman(){
+    int totalbaris = 0;
+    string baris;
+    peminjaman data;
+    ifstream bacafile("buku.txt");
+    {
+        while (getline(bacafile,baris))
+        {
+            if ((baris.find("id pinjam : ")) != string::npos)
+            {
+                totalbaris++;
+            }
+        }
+    }
+    return totalbaris;
+}
+
+peminjaman ambildatapeminjaman(int totalbaris){
+    totalbaris = hitungdatapeminjaman();
+    int index = 0;
+    peminjaman data[totalbaris];
+    ifstream bacafile("peminjaman.txt");
+    string baris;
+    while (getline(bacafile,data[index].id_peminjaman))
+    {
+        getline(bacafile,data[index].id_anggota);
+        getline(bacafile,data[index].id_buku);
+        getline(bacafile,data[index].tanggal_pinjam);
+        getline(bacafile,data[index].batas);
+        getline(bacafile,data[index].tanggal_kembali);
+        getline(bacafile,data[index].status);
+        getline(bacafile,data[index].denda);
+        index++;
+        
+    }
+    return data[totalbaris];
+}
 
 string fiksi(){
     int status;
@@ -475,10 +513,6 @@ void profileanggota(data_anggota anggota,string kodeakun,string email,string pas
     cout << endl;
 }
 
-
-void carianggota(){
-    
-}
 
 // sudah selesai
 
@@ -1011,9 +1045,6 @@ void tampildatabuku(){
                     index++;
                 }
                 
-                
-                
-                
             }
             
         }
@@ -1405,6 +1436,7 @@ void caribuku(){
     }
     #pragma endregion
 }
+
 
 void hapusbuku(){
 
@@ -1938,18 +1970,120 @@ void daftar(data_anggota anggota){
     cout << endl;
 }
 
+
 bool cekbuku(string inputbuku){
+    
+    int totalbaris = 0;
+    {
+        string baris;
+        ifstream bacafile("buku.txt");
+        while (getline(bacafile,baris))
+        {
+            if ((baris.find("judul buku : ")) != string::npos)
+            {
+                totalbaris++;
+            }
+
+        }
+    }
+    cout << totalbaris<<endl;
     ifstream bacafile("buku.txt");
-    string baris,kode;
+    buku databuku[totalbaris];
+    string baris,kode,isbn;
     bool cek = false;
     int stock;
+    int index = 0;
     string tmp;
+
+
+    // if (bacafile.is_open())
+    // {
+    //     string baris;
+    //     while (getline(bacafile,baris))
+    //     {
+    //         if ((baris.find("judul buku : ")) != string::npos)
+    //         {
+    //             databuku[index].judul = baris.substr(baris.find(":") + 1);//mengambil nilai setelah kata kunci ":"
+    //             while (databuku[index].judul[0] == ' ')
+    //             {
+    //                 databuku[index].judul.erase(0,1);
+    //             }
+                
+    //         }
+    //         if ((baris.find("isbn : ")) != string::npos)
+    //         {
+    //             isbn = baris.substr(baris.find(":") + 1);//mengambil nilai setelah kata kunci ":"
+    //             while (isbn[index][0] == ' ')
+    //             {
+    //                 isbn[index].erase(0,1);
+    //             }
+                
+    //         }
+    //         if ((baris.find("id : ")) != string::npos)
+    //         {
+    //             tmp = baris.substr(baris.find(":") + 1);//mengambil nilai setelah kata kunci ":"
+    //             id[index] = atoi(tmp.c_str());
+    //             idstr[index] = tmp;
+    //             while (idstr[index][0] == ' ')
+    //             {
+    //                 idstr[index].erase(0,1);
+    //             }
+                
+    //         }
+    //         if ((baris.find("pengarang : ")) != string::npos)
+    //         {
+    //             databuku[index].pengarang = baris.substr(baris.find(":") + 1);//mengambil nilai setelah kata kunci ":"
+    //             while (databuku[index].pengarang[0] == ' ')
+    //             {
+    //                 databuku[index].pengarang.erase(0,1);
+    //             }
+                
+    //         }
+    //         if ((baris.find("penerbit : ")) != string::npos)
+    //         {
+    //             databuku[index].penerbit = baris.substr(baris.find(":") + 1);//mengambil nilai setelah kata kunci ":"
+    //             while (penerbit[index][0] == ' ')
+    //             {
+    //                 penerbit[index].erase(0,1);
+    //             }
+                
+    //         }
+            
+    //         if ((baris.find("tahun terbit : ")) != string::npos)
+    //         {
+    //             tmp = baris.substr(baris.find(":") + 1);//mengambil nilai setelah kata kunci ":"
+    //             tahunterbit[index] = atoi(tmp.c_str());
+                
+    //         }
+            
+    //         if ((baris.find("stock : ")) != string::npos)
+    //         {
+    //             tmp = baris.substr(baris.find(":") + 1);//mengambil nilai setelah kata kunci ":"
+    //             stock[index] = atoi(tmp.c_str());
+                
+    //         }
+    //         if ((baris.find("status : ")) != string::npos)
+    //         {
+    //             status[index] = baris.substr(baris.find(":") + 1);
+    //             while (status[index][0] == ' ')
+    //             {
+    //                 status[index].erase(0,1);
+    //             }
+    //             index++;
+    //         }
+    //     }  
+            
+            
+            
+    // }
+        
     while (getline(bacafile,baris))
     {
+        
         if ((baris.find("id : ")) != string::npos)
         {
-            kode = baris.substr(baris.find(":") + 1);
-            while (kode[0] == ' ')
+            databuku[index].id_buku = baris.substr(baris.find(":") + 1);
+            while (databuku[index].id_buku[0] == ' ')
             {
                 kode.erase(0,1);
             }
@@ -1960,20 +2094,26 @@ bool cekbuku(string inputbuku){
         if (baris.find("stock : ") != string::npos)
         {
             tmp = baris.substr(baris.find(":") + 1);
-            stock = atoi(tmp.c_str());
+            databuku[index].stock = atoi(tmp.c_str());
+            
         }
+        
+        
         if (kode == inputbuku && stock > 0)
         {
             cek = true;
+            
         }
         if (cek)
         {
             break;
         }
         
+        
     }
     return cek;
 }
+
 
 bool cekkodeanggota(string kode){
     ifstream bacafile("anggota.txt");
@@ -2003,25 +2143,21 @@ bool cekkodeanggota(string kode){
     return cek;
 }
 
+
 void tambahpeminjaman(){
     ifstream bacafile("peminjaman.txt");
     int id = 1;
     peminjaman data;
     string kode,kodebuku,baris;
     waktutanggal waktu = waktunyata();
-
     while (getline(bacafile,baris))
     {
         if ((baris.find("id peminjaman : ")) != string::npos)
         {
             id++;
         }
-        
     }
-    
-    
     data.id_peminjaman = to_string(id);
-    
     cout << "peminjaman!"<<endl<<endl;
     tampildataanggota();
     cout << endl << "mohon input kode berdasar kan tabel di atas!"<<endl<<endl;
@@ -2085,11 +2221,13 @@ void tambahpeminjaman(){
     tulisfile << "id buku : "<< kodebuku <<endl;
     tulisfile << "tanggal pinjam : " << waktu.tgl << "-"<< waktu.bulan << "-"<<waktu.tahun<<endl;
     tulisfile << "deadline : " << deadline.tgl << "-"<< deadline.bulan << "-"<< deadline.tahun << endl;
+    tulisfile << "tanggal kembali : "<< "-"<<endl;
     tulisfile << "status : "<< 1<<endl;
     tulisfile << "denda : "<< 0<<endl;
     tulisfile << endl;
 
 }
+
 
 // hampir selesai 
 void dasboranggota(data_anggota anggota,string kodeakun,string email,string password){
@@ -2329,48 +2467,51 @@ int main(){
     data_anggota anggota;
     data_admin admin;
     
-    while (true)
-    {
+    // while (true)
+    // {
         
-        cout << endl
-            << "halaman login!"<<endl;
-        cout << endl 
-            <<"1.login!"<<endl
-            << "0.keluar"<<endl
-            << "input : ";
-        cin >> menu;
-        if (cin)
-        {
-            switch (menu)
-            {
-            case 1:
-                clearCMD_ln();
-                login(anggota,admin);
-                break;
+    //     cout << endl
+    //         << "halaman login!"<<endl;
+    //     cout << endl 
+    //         <<"1.login!"<<endl
+    //         << "0.keluar"<<endl
+    //         << "input : ";
+    //     cin >> menu;
+    //     if (cin)
+    //     {
+    //         switch (menu)
+    //         {
+    //         case 1:
+    //             clearCMD_ln();
+    //             login(anggota,admin);
+    //             break;
             
-            case 0:
+    //         case 0:
                 
-                cout << "user memilih keluar!"<<endl;
-                out = true;
-                break;
+    //             cout << "user memilih keluar!"<<endl;
+    //             out = true;
+    //             break;
             
-            default:
+    //         default:
 
-                clearCMD_ln();
-                cout << endl 
-                    << "menu tidak ditemukan!"<<endl;
-                continue;
-            }
-            if (out){
-                break;
-            }
-        }
-        else{
-            clearCMD_ln();
-            cout << "hanya angka!"<<endl;
-            cin.clear();// menghapus sisa input yang salah
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
-        }
-    }
-    tambahpeminjaman();
+    //             clearCMD_ln();
+    //             cout << endl 
+    //                 << "menu tidak ditemukan!"<<endl;
+    //             continue;
+    //         }
+    //         if (out){
+    //             break;
+    //         }
+    //     }
+    //     else{
+    //         clearCMD_ln();
+    //         cout << "hanya angka!"<<endl;
+    //         cin.clear();// menghapus sisa input yang salah
+    //         cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
+    //     }
+    // }
+    
+    int totalbaris = hitungdatapeminjaman();
+    peminjaman data = ambildatapeminjaman(totalbaris);    
+    
 }

@@ -32,3 +32,7 @@ id : 000008
 nama buku : hai
 id : 000009
 978-602-999-001-0
+
+nama buku : cd "d:\code\tugas-collab-perpustakaan\test\" ; if ($?) { g++ testperhitunganisbn.cpp -o testperhitunganisbn } ; if ($?) { .\testperhitunganisbn }
+id : 000010
+978-602-785-001-9

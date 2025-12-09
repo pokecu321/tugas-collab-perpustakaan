@@ -65,8 +65,8 @@ void isbn(int hasilisbn[]){
     // Prefix – Kode Negara – Kode Penerbit – Nomor Buku – Check Digit
     string prefixstr = "978";
     string kodenegarastr = "602";
-    string kodepenerbitstr = "999";
-    string nomorbukustr = "001";
+    string kodepenerbitstr = "244";
+    string nomorbukustr = "526";
     string sementara = prefixstr + kodenegarastr + kodepenerbitstr + nomorbukustr;
     int panjang = sementara.length();
     cout << sementara << endl;

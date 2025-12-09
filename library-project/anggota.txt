@@ -78,3 +78,13 @@ alamat : selorejo
 email : eka153@gmail.com
 password : kilometer ajah
 status akun : 1
+
+kode akun : fitra@gmail.com-fitra123
+nama : fitra
+id : 000009
+kode : 20091124001
+ttl : tulungagung, 24, 11, 2009
+alamat : tulungagung
+email : fitra@gmail.com
+password : fitra123
+status akun : 1
