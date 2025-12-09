@@ -4,7 +4,7 @@ id : 160001
 pengarang : m.jackson
 penerbit : m.jackson
 tahun terbit : 2006
-stock : 36
+stock : 40
 status : 1
 
 judul buku : c++,lang
@@ -31,7 +31,7 @@ id : 140004
 pengarang : pt.pancong 
 penerbit : esemkita
 tahun terbit : 2015
-stock : 38
+stock : 37
 status : 1
 
 judul buku : bahasa jawa
@@ -41,5 +41,5 @@ pengarang : piwaaaa
 penerbit : pt.pancong
 tahun terbit : 2021
 stock : 31
-status : 0
+status : 1
 
