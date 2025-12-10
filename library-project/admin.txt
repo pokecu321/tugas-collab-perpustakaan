@@ -58,3 +58,21 @@ id : 000010
 email : pancong@gmail.com
 password : pancong143
 
+kode akun : equik@gmaaa.com-equik tukam
+nama : equikk
+id : 000011
+email : equik@gmaaa.com
+password : equik tukam
+
+kode akun : alo-alo
+nama : 3
+id : 000012
+email : alo
+password : alo
+
+kode akun : garagagmail.com-alo
+nama : jobod
+id : 000013
+email : garagagmail.com
+password : alo
+

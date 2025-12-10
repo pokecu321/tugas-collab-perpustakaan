@@ -126,6 +126,22 @@ waktutanggal waktunyata(){
     return waktu;
 }
 
+int selisihHari(string tanggal) {
+    int pos1 = tanggal.find('-');
+    int pos2 = tanggal.find('-', pos1 + 1);
+
+    int hari = stoi(tanggal.substr(0, pos1));
+    int bulan = stoi(tanggal.substr(pos1 + 1, pos2 - pos1 - 1));
+    int tahun = stoi(tanggal.substr(pos2 + 1));
+
+    tm t = {};
+    t.tm_mday = hari;
+    t.tm_mon = bulan - 1;
+    t.tm_year = tahun - 1900;
+
+    return mktime(&t) / (60 * 60 * 24); // ubah ke jumlah hari total
+}
+
 // ambil data buku
 kumpulanbuku ambildatabuku(){
     kumpulanbuku hasil;
@@ -415,6 +431,7 @@ void caripeminjaman(){
     getline(cin,cari);
     for (int i = 0; i < data.jumlah; i++)
     {
+        cout << i <<endl;
         if (cari == data.datapinjam[i].id_peminjaman)
         {
             cout << "id peminjaman : "<< data.datapinjam[i].id_peminjaman<<endl;
@@ -500,6 +517,7 @@ void tampilpeminjaman(){
 void tampilataucaripeminjaman(){
     bool out = false;
     int menu;
+    int idk;
     kumpulanpeminjaman data = ambildatapeminjaman();
     while (true)
     {
@@ -871,13 +889,13 @@ void tambahbuku(){
         if (tulisfile.is_open())
         {
             tulisfile << "judul buku : " << judulbuku << endl;
-            tulisfile << "isbn : "<<isbnstr;
-            tulisfile<< endl;
+            tulisfile << "isbn : "<<isbnstr<<endl;
             tulisfile << "id : "<< kode<<endl;
             tulisfile << "pengarang : " << pengarang << endl;
             tulisfile << "penerbit : " << penerbit << endl;
             tulisfile << "tahun terbit : "<<tahunterbit<<endl;
             tulisfile << "stock : "<< stock<<endl;
+            tulisfile << "status : "<< 1;
             tulisfile << endl;
 
         }
@@ -1682,10 +1700,13 @@ void caribuku(){
                     << "input (jangan ada spasi): ";
 
                     cin >> genre;
+                    
                     for (int i = 0; i < index; i++)
                     {
+                        idstr[i] = idstr[i].substr(0,2);
                         if ((idstr[i].find(genre)) != string::npos)
                         {
+
                             if (status[i] == "1")
                             {
                                 
@@ -2297,6 +2318,39 @@ bool cekkodeanggota(string kode){
     return cek;
 }
 
+int denda(int index){
+    string tgl,bulan,tahun;
+    kumpulanbuku databuku = ambildatabuku();
+    waktutanggal waktu = waktunyata();
+    kumpulanpeminjaman data = ambildatapeminjaman();
+    string tmp = to_string(waktu.tgl) + "-" + to_string(waktu.bulan) + "-" + to_string(waktu.tahun);
+    data.datapinjam[index].tanggal_kembali = tmp;
+    data.datapinjam[index].status = "0";
+    cout << data.datapinjam[index].tanggal_kembali<<endl;
+
+    string tglbatas = data.datapinjam[index].batas;
+    string tglkembali = data.datapinjam[index].tanggal_kembali;
+
+
+    int deadline = selisihHari(tglbatas);
+    int waktupengembalian = selisihHari(tglkembali);
+ 
+
+    int haritelat = waktupengembalian - deadline;
+    int hasil;
+    if (haritelat <= 0)
+    {
+        hasil = 0;
+    }
+    else{
+        int tmp = haritelat * 10000;
+        hasil = tmp;
+    }
+    
+    return hasil;
+    
+
+}
 
 void tambahpeminjaman(){
     kumpulanpeminjaman hasilambildata = ambildatapeminjaman();
@@ -2384,6 +2438,83 @@ void tambahpeminjaman(){
 }
 
 void pengembalian(){
+    kumpulanbuku databuku = ambildatabuku();
+    waktutanggal waktu = waktunyata();
+    string cari;
+    int index;
+    kumpulanpeminjaman data = ambildatapeminjaman();
+    cout << "input id peminjaman : ";
+    cin.ignore();
+    getline(cin,cari);
+    for (int i = 0; i < data.jumlah; i++)
+    {
+        cout << i <<endl;
+        if (cari == data.datapinjam[i].id_peminjaman)
+        {
+            index = i;
+            cout << "id peminjaman : "<< data.datapinjam[i].id_peminjaman<<endl;
+            cout << "kode anggota : "<< data.datapinjam[i].id_anggota<<endl;
+            cout << "id buku : "<< data.datapinjam[i].id_buku<<endl;
+            cout << "tanggal pinjam : " << data.datapinjam[i].tanggal_pinjam<<endl;
+            cout << "deadline : " << data.datapinjam[i].batas<< endl;
+            cout << "tanggal pengembalian : "<< data.datapinjam[i].tanggal_kembali<<endl;
+            cout << "status : "<< data.datapinjam[i].status<<endl;
+            cout << "denda : "<< data.datapinjam[i].denda<<endl;
+            cout << endl;
+            break;
+        }
+        
+    }
+    
+    int hasildenda = denda(index);
+    string tmp = to_string(waktu.tgl) + "-" + to_string(waktu.bulan) + "-" + to_string(waktu.tahun);
+    data.datapinjam[index].tanggal_kembali = tmp;
+    data.datapinjam[index].status = "0";
+    // cout << data.datapinjam[index].tanggal_kembali<<endl;
+    // cout << hasildenda<<endl;
+
+    for (int i = 0; i < databuku.jumlah; i++)
+    {
+        if (data.datapinjam[index].id_buku == databuku.databuku[i].id_bukustr)
+        {
+            databuku.databuku[i].stock += 1;
+        }
+        
+    }
+    ofstream tulisfilebuku("buku.txt");
+    ofstream tulisfilepeminjaman("peminjaman.txt");
+
+    // tulisfile buku
+
+    for (int i = 0; i < databuku.jumlah; i++)
+    {
+        tulisfilepeminjaman << "id peminjaman : "<< data.datapinjam[i].id_peminjaman<<endl;
+        tulisfilepeminjaman << "kode anggota : "<< data.datapinjam[i].id_anggota<<endl;
+        tulisfilepeminjaman << "id buku : "<< data.datapinjam[i].id_buku <<endl;
+        tulisfilepeminjaman << "tanggal pinjam : " << data.datapinjam[i].tanggal_pinjam <<endl;
+        tulisfilepeminjaman << "deadline : " << data.datapinjam[i].batas << endl;
+        tulisfilepeminjaman << "tanggal kembali : "<< data.datapinjam[i].tanggal_kembali <<endl;
+        tulisfilepeminjaman << "status : "<< data.datapinjam[i].status <<endl;
+        tulisfilepeminjaman << "denda : "<< data.datapinjam[i].denda <<endl;
+        tulisfilepeminjaman << endl;
+
+    }
+    for (int i = 0; i < data.jumlah; i++)
+    {
+        tulisfilebuku << "judul buku : " << databuku.databuku[i].judul << endl;
+        tulisfilebuku << "isbn : " << databuku.databuku[i].isbnstr << endl;
+        tulisfilebuku << "id : " << databuku.databuku[i].id_bukustr << endl;
+        tulisfilebuku << "pengarang : " << databuku.databuku[i].pengarang << endl;
+        tulisfilebuku << "penerbit : " << databuku.databuku[i].penerbit << endl;
+        tulisfilebuku << "tahun terbit : " << databuku.databuku[i].tahun_terbit << endl;
+        tulisfilebuku << "stock : " << databuku.databuku[i].stock << endl;
+        tulisfilebuku << "status : " << databuku.databuku[i].status << endl;
+        tulisfilebuku << endl;
+    }
+    cout << endl;
+    
+
+    
 
 }
 
@@ -2512,10 +2643,11 @@ void dasboradmin(){
         else if (menu == "7")
         {
             cout << "pengembalian"<<endl;
+            pengembalian();
         }
         else if (menu == "8")
         {
-            cout << "tampil admin"<<endl;
+                cout << "tampil admin"<<endl;
             tampiladmin();
         }
         else if (menu == "9")
@@ -2629,6 +2761,7 @@ int main(){
     
     bool out = false;
     int menu;
+    int index;
     data_anggota anggota;
     data_admin admin;
     

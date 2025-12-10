@@ -156,7 +156,8 @@ tampil data buku,admin,anggota
 cari buku,cari anggota
 
 hapus buku
-
+tampil peminjaman,cari 
+edit buku(jadi bukan cuman hapus buku,jadi bisa up stock juga)
 
 
 sudah lumayan!
@@ -167,11 +168,11 @@ peminjaman(tinggal kurangi stock buku)
 
 belum tapi sudah dapat algoritma!
 
-tampil peminjaman,cari peminjaman(peminjaman dan pengembalian sudah 90% minimal,barubisa mengerjakan fungsi ini)
+(peminjaman dan pengembalian sudah 90% minimal,barubisa mengerjakan fungsi ini)
 
 denda(setelah peminjaman)
 
-edit buku(jadi bukan cuman hapus buku,jadi bisa up stock juga)
+
 
 
 
@@ -179,11 +180,9 @@ belum
 
 pengembalian
 
-tampil peminjaman,cari peminjaman(peminjaman dan pengembalian sudah 90% minimal)
-
 denda(setelah peminjaman)
 
-edit buku(jadi bukan cuman hapus buku,jadi bisa up stock juga)
+
 
 
 

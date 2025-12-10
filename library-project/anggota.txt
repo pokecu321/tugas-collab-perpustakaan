@@ -88,3 +88,23 @@ alamat : tulungagung
 email : fitra@gmail.com
 password : fitra123
 status akun : 1
+
+kode akun : ragatukam@gmail.com-tukam amba
+nama : raga hytam
+id : 000010
+kode : 20020619001
+ttl : los santos, 19, 06, 2002
+alamat : terserah
+email : ragatukam@gmail.com
+password : tukam amba
+status akun : 1
+
+kode akun : ekikukgmail.com-alo
+nama : ekik
+id : 000011
+kode : 20340831001
+ttl : bandung, 31, 08, 2034
+alamat : gondang
+email : ekikukgmail.com
+password : alo
+status akun : 1

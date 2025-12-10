@@ -4,7 +4,7 @@ id : 160001
 pengarang : m.jackson
 penerbit : m.jackson
 tahun terbit : 2006
-stock : 40
+stock : 41
 status : 1
 
 judul buku : c++,lang
@@ -42,4 +42,14 @@ penerbit : pt.pancong
 tahun terbit : 2021
 stock : 31
 status : 1
+
+judul buku : ilmu putih
+isbn : 9796081231234
+id : 120006
+pengarang : ekik
+penerbit : dindon
+tahun terbit : 2001
+stock : 5
+status : 1
+
 
