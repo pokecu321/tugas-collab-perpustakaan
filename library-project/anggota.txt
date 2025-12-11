@@ -129,3 +129,13 @@ alamat : pucanglaban
 email : adinsigmabanget^999@gmail.com
 password : hallo wok aku dindon
 status akun : 1
+
+kode akun : asdqwe-alo
+nama : adsasd
+id : 000014
+kode : 20090331001
+ttl : asd, 31, 03, 2009
+alamat : asd
+email : asdqwe
+password : alo
+status akun : 1

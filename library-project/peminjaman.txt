@@ -12,8 +12,8 @@ kode anggota : 20091123003
 id buku : 140004
 tanggal pinjam : 9-12-2025
 deadline : 16-12-2025
-tanggal kembali : -
-status : 1
+tanggal kembali : 11-12-2025
+status : 0
 denda : 0
 
 id peminjaman : 3
@@ -42,4 +42,31 @@ deadline :
 tanggal kembali : 
 status : 
 denda : 
+
+id peminjaman : 
+kode anggota : 
+id buku : 
+tanggal pinjam : 
+deadline : 
+tanggal kembali : 
+status : 
+denda : 
+
+id peminjaman : 
+kode anggota : 
+id buku : 
+tanggal pinjam : 
+deadline : 
+tanggal kembali : 
+status : 
+denda : 
+
+id peminjaman : 8
+kode anggota : 20020619001
+id buku : 120003
+tanggal pinjam : 11-12-2025
+deadline : 18-12-2025
+tanggal kembali : -
+status : 1
+denda : 0
 

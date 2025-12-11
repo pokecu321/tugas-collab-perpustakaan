@@ -22,7 +22,7 @@ id : 120003
 pengarang : equiiik
 penerbit : esemkita
 tahun terbit : 2025
-stock : 46
+stock : 45
 status : 1
 
 judul buku : b.indonesia
@@ -31,7 +31,7 @@ id : 140004
 pengarang : pt.pancong 
 penerbit : esemkita
 tahun terbit : 2015
-stock : 37
+stock : 38
 status : 1
 
 judul buku : bahasa jawa
@@ -43,21 +43,3 @@ tahun terbit : 2021
 stock : 31
 status : 1
 
-judul buku : ilmu putih
-isbn : 9796081231234
-id : 120006
-pengarang : ekik
-penerbit : dindon
-tahun terbit : 2001
-stock : 5
-status : 1
-
-
-judul buku : java basic
-isbn : 9786081233455
-id : 160007
-pengarang : rpl class
-penerbit : esemkita
-tahun terbit : 2024
-stock : 60
-status : 1

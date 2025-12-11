@@ -1982,9 +1982,9 @@ void tambahadmin(data_admin admin){
     ifstream bacafile("admin.txt");
     ifstream bacafileanggota("anggota.txt");
     ofstream tulisfile("admin.txt",ios::app);
-    string id,email,passw,nama,kodeakun;
+    string email,passw,nama,kodeakun;
     string konfirmasi;
-    bool dupe = true;
+    bool dupe = false;
     int urutan = 1; // urutan id admin
     if(bacafile.is_open())
     {
@@ -2488,7 +2488,7 @@ void tambahpeminjaman(){
     
     while (true)
     {
-        cout << "input kode buku : ";
+        cout << "input id buku : ";
         cin >> kodebuku;
         if (cekbuku(kodebuku))
         {

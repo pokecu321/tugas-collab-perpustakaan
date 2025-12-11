@@ -76,3 +76,9 @@ id : 000013
 email : garagagmail.com
 password : alo
 
+kode akun : adminnnnnnnnnnn@gmail.com-admin#1234
+nama : sadczxc
+id : 000014
+email : adminnnnnnnnnnn@gmail.com
+password : admin#1234
+
