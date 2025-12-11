@@ -710,11 +710,13 @@ string kodebuku(){
 
 void tambahbuku(){
     // inisialisasi variabel
+    ifstream bacafilebuku("buku.txt");
+    string baris;
     string judulbuku,penerbit,pengarang,tahunterbitstr;
     string isbnstr;
     ISBN isbn;
     int stock,tahunterbit;
-
+    bool dupe = false;
     // input
     #pragma region input
     cin.ignore();// menghapus buffer
@@ -860,9 +862,21 @@ void tambahbuku(){
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
             }
         }
-
-        // menggabung semua var menjadi satu
         isbnstr = to_string(isbn.previx) + to_string(isbn.kodenegara) + to_string(isbn.kodepenerbit) + to_string(isbn.nomorbuku) + to_string(isbn.checkdigit);
+        while(getline(bacafilebuku,baris)){
+            if(baris.find(isbnstr) != string::npos){
+                dupe = true;
+                continue;
+            }
+        }
+        if (dupe)
+        {
+            cout << "isbn sudah terdaftar!"<<endl<<endl;
+            continue;
+        }
+        
+        // menggabung semua var menjadi satu
+        
         // bukti hasil isbn
         cout << "isbn : "<< isbnstr<<endl;
         if (isbnstr.length() == 13)// pengecekan panjang isbn yang harus 13 digit
@@ -1703,8 +1717,8 @@ void caribuku(){
                     
                     for (int i = 0; i < index; i++)
                     {
-                        idstr[i] = idstr[i].substr(0,2);
-                        if ((idstr[i].find(genre)) != string::npos)
+                        string tmp = idstr[i].substr(0,2);
+                        if ((tmp.find(genre)) != string::npos)
                         {
 
                             if (status[i] == "1")
@@ -1966,9 +1980,11 @@ void editbuku(){
 
 void tambahadmin(data_admin admin){
     ifstream bacafile("admin.txt");
+    ifstream bacafileanggota("anggota.txt");
     ofstream tulisfile("admin.txt",ios::app);
     string id,email,passw,nama,kodeakun;
     string konfirmasi;
+    bool dupe = true;
     int urutan = 1; // urutan id admin
     if(bacafile.is_open())
     {
@@ -2003,31 +2019,52 @@ void tambahadmin(data_admin admin){
         idstr = "00" + idstr;
     }
     
+    string baris;
     #pragma region input data admin
     cout << endl;
     cin.ignore();
     cout << "nama : ";
     getline(cin,nama);
-    cout << "email : ";
-    getline(cin,email);
-    while (true)
-    {
-        cout << "password : ";
-        getline(cin,passw);
-        cout << "konfirmasi password : ";
-        getline(cin,konfirmasi);
-        if (passw == konfirmasi)
+    while(true){
+        cout << "email : ";
+        getline(cin,email);
+        while (true)
         {
-            break;
+            cout << "password : ";
+            getline(cin,passw);
+            cout << "konfirmasi password : ";
+            getline(cin,konfirmasi);
+            if (passw == konfirmasi)
+            {
+                break;
+            }
+            else{
+                cout << "password tidak sama!"<<endl;
+                cout << "==========="  <<endl;
+            }
+        }
+        kodeakun = email + "-" + passw;
+    
+        while(getline(bacafile,baris)){
+            if(baris.find(kodeakun) != string::npos){
+                dupe = true;
+            }
+        }
+        while(getline(bacafileanggota,baris)){
+            if(baris.find(kodeakun) != string::npos){
+                dupe = true;
+            }
+        }
+        if(dupe){
+            cout << "akun sudah terdaftar!"<<endl;
+            continue;
         }
         else{
-            cout << "password tidak sama!"<<endl;
-            cout << "==========="  <<endl;
+            break;
         }
+
     }
-
-    kodeakun = email + "-" + passw;
-
+    
     if (tulisfile.is_open())
     {
         tulisfile << "kode akun : "<<kodeakun<<endl;
@@ -2046,6 +2083,10 @@ void tambahadmin(data_admin admin){
 // sepertinya sudah selesai
 void daftar(data_anggota anggota){
     
+
+    ifstream bacafileanggota("anggota.txt");
+    ifstream bacafileadmin("admin.txt");
+    bool dupe = false;
     string tgl,bulan,tahun;
     string baris;
     string konfirmasi;// konfirmasi password
@@ -2064,18 +2105,19 @@ void daftar(data_anggota anggota){
     getline(cin,anggota.ttl.tempat);
     
     // input ttl
-    while (true) // input tanggal
+
+    while (true)//input tahun
     {
-        cout << "tanggal : ";
-        cin >> anggota.ttl.tgl;
-        if (cin && ( 0 < anggota.ttl.tgl && anggota.ttl.tgl<= 31)) //jika input int dan kurang dari atau sama dengan 31 maka looping berhenti
+        cout << "tahun : ";
+        cin >> anggota.ttl.tahun;
+        if (cin && anggota.ttl.tahun >= 1900 && anggota.ttl.tahun < 2026)// jika input adalah int maka looping berhenti
         {
-            break;//mengakhiri looping
+            break;
         }
-        else{//atau jika input selain int dan lebih dari 31 maka looping di jalan kan
-            cout << "format salah,mohon input ulang!" << endl;
-            cin.clear();//mengahapus sisa input yang salah
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');// menghapus buffer
+        else{// jika tidak maka looping dijalankan
+            cout << "input salah,mohon input ulang!"<<endl;
+            cin.clear();//menghapus sisa input yang salah
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer(berhenti jika bertemu dengan newline atau endl)
         }
     }
 
@@ -2093,49 +2135,107 @@ void daftar(data_anggota anggota){
             cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
         }
     }
-    
-    while (true)//input tahun
+
+    while (true) // input tanggal
     {
-        cout << "tahun : ";
-        cin >> anggota.ttl.tahun;
-        if (cin)// jika input adalah int maka looping berhenti
+        cout << "tanggal : ";
+        cin >> anggota.ttl.tgl;
+        if (cin && ( 0 < anggota.ttl.tgl)) //jika input int dan kurang dari atau sama dengan 31 maka looping berhenti
         {
-            break;
+            //1 3 5 7 8 10 12
+            if(((anggota.ttl.bulan == 1) || 
+                (anggota.ttl.bulan == 3) || 
+                (anggota.ttl.bulan == 5) || 
+                (anggota.ttl.bulan == 7) || 
+                (anggota.ttl.bulan == 8) || 
+                (anggota.ttl.bulan == 10) || 
+                (anggota.ttl.bulan == 12)) && anggota.ttl.tgl <= 31){
+                break;
+            }
+            else if((anggota.ttl.bulan == 2) && anggota.ttl.tgl <= 29){
+                break;
+            }
+            // 4 6 9 11
+            else if(((anggota.ttl.bulan == 4) ||
+                    (anggota.ttl.bulan == 6) ||
+                    (anggota.ttl.bulan == 9) ||
+                    (anggota.ttl.bulan == 11)) && anggota.ttl.tgl <= 30 ){
+                break;
+            }
+            else{
+                cout << "salah format woi!!"<<endl;
+                continue;
+            }
         }
-        else{// jika tidak maka looping dijalankan
-            cout << "input salah,mohon input ulang!"<<endl;
-            cin.clear();//menghapus sisa input yang salah
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer(berhenti jika bertemu dengan newline atau endl)
+        else{//atau jika input selain int dan lebih dari 31 maka looping di jalan kan
+            cout << "format salah,mohon input ulang!" << endl;
+            cin.clear();//mengahapus sisa input yang salah
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');// menghapus buffer
         }
     }
+
+    
+    
+    
     
     
     cout << "alamat : ";
     cin.ignore();//menghapus buffer
     getline(cin,anggota.alamat);
 
-    cout << "email : ";
-    getline(cin,anggota.email);
-    
-    //password
-    while (true)// looping terus sampai ada break;
+    while (true)
     {
-        cout << "password : ";
-        getline(cin,anggota.password);//input password
-        cout << "konfirmasi password : ";
-        getline(cin,konfirmasi);//input konfirmasi password
-        //pengecekan kondisi"apakah password dan konfirmasi sama?"
-        if (anggota.password == konfirmasi)//jika sama maka looping di hentikan
+    
+        cout << "email : ";
+        getline(cin,anggota.email);
+        
+        //password
+        while (true)// looping terus sampai ada break;
         {
-            break;//memberi tanda ke looping bahwa looping berhenti
+            cout << "password : ";
+            getline(cin,anggota.password);//input password
+            cout << "konfirmasi password : ";
+            getline(cin,konfirmasi);//input konfirmasi password
+            //pengecekan kondisi"apakah password dan konfirmasi sama?"
+            if (anggota.password == konfirmasi)//jika sama maka looping di hentikan
+            {
+                break;//memberi tanda ke looping bahwa looping berhenti
+            }
+            else{//jika tidak sama maka looping masih berlanjut
+                cout << "password tidak sama!(tekan enter atau apa saja untuk lanjut XD) ";
+                cin.clear();// menghapus sisa input yang salah
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
+            }
+
         }
-        else{//jika tidak sama maka looping masih berlanjut
-            cout << "password tidak sama!(tekan enter atau apa saja untuk lanjut XD) ";
-            cin.clear();// menghapus sisa input yang salah
-            cin.ignore(numeric_limits<streamsize>::max(),'\n');//menghapus buffer
+
+        string tmp = anggota.email + "-" + anggota.password;
+        string baris;
+        while (getline(bacafileadmin,baris))
+        {
+            if(baris.find(tmp) != string::npos){
+                dupe = true;
+            }
+            
+        }
+        while (getline(bacafileanggota,baris))
+        {
+            if(baris.find(tmp) != string::npos){
+                dupe = true;
+            }
+        }
+
+        if(dupe){
+            cout << endl<<"akun sudah terdaftar!"<<endl<<endl;
+            continue;
+
+        }
+        else{
+            break;
         }
         
     }
+
     // konversi dari int menjadi string menggunakan stl string atau #include <string>
     tgl = to_string(anggota.ttl.tgl);
     bulan = to_string(anggota.ttl.bulan);
@@ -2144,7 +2244,7 @@ void daftar(data_anggota anggota){
     kodeakun = anggota.email +"-"+ anggota.password;
     
     // tanggal
-    if (anggota.ttl.tgl < 10)
+    if (anggota.ttl.tgl < 10 )
     {
         tgl = "0" + tgl;
     }

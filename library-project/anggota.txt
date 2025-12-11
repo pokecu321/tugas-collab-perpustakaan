@@ -108,3 +108,24 @@ alamat : gondang
 email : ekikukgmail.com
 password : alo
 status akun : 1
+
+
+kode akun : adin@gmail.com-hai
+nama : a
+id : 000012
+kode : 20091212001
+ttl : a, 12, 12, 2009
+alamat : pucanglaban
+email : adin@gmail.com
+password : hai
+status akun : 1
+
+kode akun : adinsigmabanget^999@gmail.com-hallo wok aku dindon
+nama : a
+id : 000013
+kode : 20120229001
+ttl : a, 29, 02, 2012
+alamat : pucanglaban
+email : adinsigmabanget^999@gmail.com
+password : hallo wok aku dindon
+status akun : 1

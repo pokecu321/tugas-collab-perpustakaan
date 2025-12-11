@@ -53,3 +53,11 @@ stock : 5
 status : 1
 
 
+judul buku : java basic
+isbn : 9786081233455
+id : 160007
+pengarang : rpl class
+penerbit : esemkita
+tahun terbit : 2024
+stock : 60
+status : 1
